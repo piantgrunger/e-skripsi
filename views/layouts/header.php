@@ -26,9 +26,22 @@ $menuItems =
                             ['label' => 'Alat Kelengkapan', 'icon' => ' fa fa-circle-o', 'url' => ['/alat-kelengkapan/index'], 'visible' => !Yii::$app->user->isGuest],
                             ['label' => 'Kegiatan', 'icon' => ' fa fa-circle-o', 'url' => ['/kegiatan/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Kota', 'icon' => ' fa fa-circle-o', 'url' => ['/kota/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Tarif', 'icon' => ' fa fa-circle-o', 'url' => ['/tarif/index'], 'visible' => !Yii::$app->user->isGuest],
+                ['label' => 'Personil', 'icon' => ' fa fa-circle-o', 'url' => ['/personil/index'], 'visible' => !Yii::$app->user->isGuest],
 
                                         ], ],
-                ];
+        [
+            'visible' => !Yii::$app->user->isGuest,
+            'label' => 'Perjalanan Dinas',
+            'icon' => 'fa fa-share',
+            'url' => '#',
+            'items' => [
+                ['label' => 'Mapping Alat Kelengkapan', 'icon' => ' fa fa-circle-o', 'url' => ['/alat-kelengkapan/index-mapping'], 'visible' => !Yii::$app->user->isGuest],
+
+                ]
+        ]
+            ];
+
 
  if (!Yii::$app->user->isGuest) {
      if (Yii::$app->user->identity->username !== 'admin') {

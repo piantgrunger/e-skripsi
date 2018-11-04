@@ -3,7 +3,7 @@ use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-$this->title = 'BANJARBARU BEGAWI';
+$this->title = 'SPPD Administrator';
 dmstr\web\AdminLteAsset::register($this);
 ?>
 <?php $this->beginPage(); ?>

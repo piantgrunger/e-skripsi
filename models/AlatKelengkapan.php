@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use mdm\behaviors\ar\RelationTrait;
+
 use Yii;
 
 /**
@@ -16,6 +18,7 @@ class AlatKelengkapan extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+    use RelationTrait;
     public static function tableName()
     {
         return '{{%tb_m_alat_kelengkapan}}';
@@ -43,5 +46,14 @@ class AlatKelengkapan extends \yii\db\ActiveRecord
             'alat_kelengkapan' => Yii::t('app', 'Alat Kelengkapan'),
             'tahun' => Yii::t('app', 'Tahun'),
         ];
+    }
+
+    public function getDetailAlatKelengkapan()
+    {
+        return $this->hasMany(DetAlatKelengkapan::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan']);
+    }
+    public function setDetailAlatKelengkapan($value)
+    {
+        return $this->loadRelated('detailAlatKelengkapan', $value);
     }
 }

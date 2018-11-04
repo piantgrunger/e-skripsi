@@ -52,6 +52,22 @@ $this->registerJSFile(Yii::$app->homeUrl.'js/start.js', ['depends' => [yii\web\J
         <span class='branding-bar'>Kegiatan</span>
          ", ['/kegiatan'], ['data-role' => 'tile', 'class ' => 'bg-red', 'data-effect' => 'animate-slide-up']) : ''; ?>
 
+ <?= (Mimin::checkRoute('tarif/index')) ? Html::a("
+        <span class='fa fa-money icon'></span>
+        <span class='branding-bar'>Tarif</span>
+         ", ['/tarif'], ['data-role' => 'tile', 'class ' => 'bg-green', 'data-effect' => 'animate-slide-up']) : ''; ?>
+ <?= (Mimin::checkRoute('personil/index')) ? Html::a("
+        <span class='fa fa-user-o icon'></span>
+        <span class='branding-bar'>Personil</span>
+         ", ['/personil'], ['data-role' => 'tile', 'class ' => 'bg-pink', 'data-effect' => 'animate-slide-up']) : ''; ?>
+
+
+</div>
+<div class="tiles-grid tiles-group  size-2">
+      <?= (Mimin::checkRoute('alat-kelengkapan/index-mapping')) ? Html::a("
+        <span class='fa fa-users icon'></span>
+        <span class='branding-bar'>Mapping Alat Kelengkapan</span>
+         ", ['/alat-kelengkapan/index-mapping'], ['data-size' => 'wide' ,'data-role' => 'tile', 'class ' => 'bg-blue', 'data-effect' => 'animate-slide-up']) : ''; ?>
 
 </div>
 </div>

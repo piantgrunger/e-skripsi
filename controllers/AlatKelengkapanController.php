@@ -8,6 +8,10 @@ use app\models\AlatKelengkapanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\PersonilSearch;
+use yii\data\Pagination;
+use yii\helpers\Json;
+use app\models\Personil;
 
 /**
  * AlatKelengkapanController implements the CRUD actions for AlatKelengkapan model.
@@ -39,6 +43,19 @@ class AlatKelengkapanController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndexMapping()
+    {
+        $searchModel = new AlatKelengkapanSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        if ($searchModel->tahun == '') {
+            $searchModel->tahun=date('Y');
+        }
+        return $this->render('index-mapping', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -93,6 +110,34 @@ class AlatKelengkapanController extends Controller
         }
     }
 
+
+    public function actionMapping($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailAlatKelengkapan = Yii::$app->request->post('DetAlatKelengkapan', []);
+                //die(var_dump($model->detailAlatKelengkapan));
+                if ($model->save()) {
+                    $transaction->commit();
+                    return $this->redirect(['index-mapping']);
+                }
+            } catch (\yii\db\IntegrityException $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', 'Data Tidak Dapat Direvisi Karena Dipakai Modul Lain');
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+        } else {
+            return $this->render('mapping', [
+                'model' => $model,
+
+        ]);
+        }
+    }
     /**
      * Deletes an existing AlatKelengkapan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
@@ -101,17 +146,25 @@ class AlatKelengkapanController extends Controller
      */
     public function actionDelete($id)
     {
-        
-       try
-      {
-        $this->findModel($id)->delete();
-      
-      }
-      catch(\yii\db\IntegrityException  $e)
-      {
-	Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
-       } 
-         return $this->redirect(['index']);
+        try {
+            $this->findModel($id)->delete();
+        } catch (\yii\db\IntegrityException  $e) {
+            Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
+        }
+        return $this->redirect(['index']);
+    }
+
+    public function actionPersonil($id)
+    {
+        $model = Personil::findOne(['id_personil' => $id]);
+        return Json::encode([
+            'id_personil' => $model->id_personil,
+            'nama_personil' => $model->nama_personil,
+            'status_personil' => $model->status_personil,
+            'nama_pangkat' => $model->nama_pangkat,
+
+
+        ]);
     }
 
     /**
