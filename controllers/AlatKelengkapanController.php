@@ -116,18 +116,35 @@ class AlatKelengkapanController extends Controller
     {
         $model = $this->findModel($id);
         if (count($model->detailAlatKelengkapan) ===0) {
+            $list = [];
             $detail = new DetAlatKelengkapan();
-            $detail->id_personil='102';
+            $detail->id_personil=102;
+            $detail->id_alat_kelengkapan = $model->id_alat_kelengkapan;
             $detail->jenis = 'Ketua DPRD';
-            array_push($model->detailAlatKelengkapan, $detail);
+
+            array_push($list, $detail);
             $detail = new DetAlatKelengkapan();
-            $detail->id_personil = '109';
+            $detail->id_personil = 109;
             $detail->jenis = 'Wakil Ketua DPRD';
-            array_push($model->detailAlatKelengkapan, $detail);
+            array_push($list, $detail);
             $detail = new DetAlatKelengkapan();
-            $detail->id_personil = '116';
+            $detail->id_personil = 116;
             $detail->jenis = 'Wakil Ketua DPRD';
-            array_push($model->detailAlatKelengkapan, $detail);
+            array_push($list, $detail);
+
+            $model->detailAlatKelengkapan = $list;
+
+            /*
+            $model->detailAlatKelengkapan=$detail;
+            $detail = new DetAlatKelengkapan();
+            $detail->id_personil = 109;
+            $detail->jenis = 'Wakil Ketua DPRD';
+            $model->detailAlatKelengkapan = $detail;
+            $detail = new DetAlatKelengkapan();
+            $detail->id_personil =116;
+            $detail->jenis = 'Wakil Ketua DPRD';
+            $model->detailAlatKelengkapan = $detail;
+            */
         }
 
 

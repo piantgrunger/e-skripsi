@@ -8,6 +8,8 @@ use app\models\SuratPerintahTugasSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\DetAlatKelengkapan;
+use yii\helpers\Json;
 
 /**
  * SuratPerintahTugasController implements the CRUD actions for SuratPerintahTugas model.
@@ -101,17 +103,25 @@ class SuratPerintahTugasController extends Controller
      */
     public function actionDelete($id)
     {
-        
-       try
-      {
-        $this->findModel($id)->delete();
-      
-      }
-      catch(\yii\db\IntegrityException  $e)
-      {
-	Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
-       } 
-         return $this->redirect(['index']);
+        try {
+            $this->findModel($id)->delete();
+        } catch (\yii\db\IntegrityException  $e) {
+            Yii::$app->session->setFlash('error', "Data Tidak Dapat Dihapus Karena Dipakai Modul Lain");
+        }
+        return $this->redirect(['index']);
+    }
+
+    public function actionAlatKelengkapan($id)
+    {
+        return  Json::encode(DetAlatKelengkapan::find()
+        ->select('tb_d_alat_kelengkapan.*,tb_m_personil.nama_personil,nama_pangkat,status_personil ')
+        ->leftJoin('tb_m_personil', "tb_m_personil.id_personil = tb_d_alat_kelengkapan.id_personil")
+            ->leftJoin('tb_m_pangkat', "tb_m_personil.id_pangkat = tb_m_pangkat.id_pangkat")
+
+        ->where("id_alat_kelengkapan=$id")
+
+          ->orderBy([new \yii\db\Expression('FIELD (jenis, "Ketua DPRD", "Wakil Ketua DPRD", "Ketua","Wakil Ketua","Sekretaris","Anggota","Staff")')])
+        ->asArray()->all());
     }
 
     /**
