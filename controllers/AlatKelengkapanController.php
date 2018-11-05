@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\AlatKelengkapan;
+use app\models\DetAlatKelengkapan;
 use app\models\AlatKelengkapanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -114,6 +115,21 @@ class AlatKelengkapanController extends Controller
     public function actionMapping($id)
     {
         $model = $this->findModel($id);
+        if (count($model->detailAlatKelengkapan) ===0) {
+            $detail = new DetAlatKelengkapan();
+            $detail->id_personil='102';
+            $detail->jenis = 'Ketua DPRD';
+            array_push($model->detailAlatKelengkapan, $detail);
+            $detail = new DetAlatKelengkapan();
+            $detail->id_personil = '109';
+            $detail->jenis = 'Wakil Ketua DPRD';
+            array_push($model->detailAlatKelengkapan, $detail);
+            $detail = new DetAlatKelengkapan();
+            $detail->id_personil = '116';
+            $detail->jenis = 'Wakil Ketua DPRD';
+            array_push($model->detailAlatKelengkapan, $detail);
+        }
+
 
         if ($model->load(Yii::$app->request->post())) {
             $transaction = Yii::$app->db->beginTransaction();

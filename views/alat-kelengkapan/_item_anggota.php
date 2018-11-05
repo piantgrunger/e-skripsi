@@ -33,7 +33,11 @@ $data = ArrayHelper::map(Personil::find()->select(['id_personil','nama_personil'
 <td><?= $form->field($model, "[$key]status_personil")->textInput(["readOnly" => true])->label(false) ?></td>
 <td>
 
-<?= $form->field($model, "[$key]jenis")->dropDownList(['Ketua' => 'Ketua', 'Wakil Ketua' => 'Wakil Ketua',
+<?= $form->field($model, "[$key]jenis")->dropDownList([
+    'Ketua DPRD' => 'Ketua DPRD',
+    'Wakil Ketua DPRD' => 'Wakil Ketua DPRD',
+
+    'Ketua' => 'Ketua', 'Wakil Ketua' => 'Wakil Ketua',
 'Sekretaris' =>'Sekretaris','Anggota' =>'Anggota','Staff' =>'Staff'
 ], ['prompt' =>''])->label(false) ?>
 

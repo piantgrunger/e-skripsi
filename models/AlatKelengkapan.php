@@ -50,7 +50,10 @@ class AlatKelengkapan extends \yii\db\ActiveRecord
 
     public function getDetailAlatKelengkapan()
     {
-        return $this->hasMany(DetAlatKelengkapan::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan']);
+        return $this->hasMany(DetAlatKelengkapan::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan'])
+        ->orderBy([new \yii\db\Expression('FIELD (jenis, "Ketua DPRD", "Wakil Ketua DPRD", "Ketua","Wakil Ketua","Sekretaris","Anggota","Staff")')]);
+
+        ;
     }
     public function setDetailAlatKelengkapan($value)
     {
