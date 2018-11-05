@@ -3,24 +3,27 @@
 namespace app\models;
 
 use Yii;
+use mdm\behaviors\ar\RelationTrait;
 
 /**
  * This is the model class for table "tb_mt_spt".
  *
- * @property int                $id_spt
- * @property string             $no_spt
- * @property string             $tgl_surat
- * @property int                $id_alat_kelengkapan
- * @property string             $untuk
- * @property string             $tujuan
- * @property string             $zona
- * @property string             $tgl_awal
- * @property string             $tgl_akhir
- * @property string             $penanda_tangan
- * @property TbMAlatKelengkapan $alatKelengkapan
+ * @property int                   $id_spt
+ * @property string                $no_spt
+ * @property string                $tgl_surat
+ * @property int                   $id_alat_kelengkapan
+ * @property string                $untuk
+ * @property string                $tujuan
+ * @property string                $zona
+ * @property string                $tgl_awal
+ * @property string                $tgl_akhir
+ * @property string                $penanda_tangan
+ * @property TbMSuratPerintahTugas $SuratPerintahTugas
  */
 class SuratPerintahTugas extends \yii\db\ActiveRecord
 {
+    use RelationTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -41,7 +44,7 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
             [['untuk', 'tujuan'], 'string'],
             [['no_spt'], 'string', 'max' => 50],
             [['zona', 'penanda_tangan'], 'string', 'max' => 100],
-            [['id_alat_kelengkapan'], 'exist', 'skipOnError' => true, 'targetClass' => AlatKelengkapan::className(), 'targetAttribute' => ['id_alat_kelengkapan' => 'id_alat_kelengkapan']],
+            [['id_alat_kelengkapan'], 'exist', 'skipOnError' => true, 'targetClass' => SuratPerintahTugas::className(), 'targetAttribute' => ['id_alat_kelengkapan' => 'id_alat_kelengkapan']],
         ];
     }
 
@@ -67,8 +70,19 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAlatKelengkapan()
+    public function getSuratPerintahTugas()
     {
-        return $this->hasOne(AlatKelengkapan::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan']);
+        return $this->hasOne(SuratPerintahTugas::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan']);
+    }
+
+    public function getDetailSuratPerintahTugas()
+    {
+        return $this->hasMany(DetSuratPerintahTugas::className(), ['id_spt' => 'id_spt'])
+        ->orderBy([new \yii\db\Expression('FIELD (jenis, "Ketua DPRD", "Wakil Ketua DPRD", "Ketua","Wakil Ketua","Sekretaris","Anggota","Staff")')]);
+    }
+
+    public function setDetailSuratPerintahTugas($value)
+    {
+        return $this->loadRelated('detailSuratPerintahTugas', $value);
     }
 }

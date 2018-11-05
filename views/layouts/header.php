@@ -28,7 +28,6 @@ $menuItems =
                 ['label' => 'Kota', 'icon' => ' fa fa-circle-o', 'url' => ['/kota/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Tarif', 'icon' => ' fa fa-circle-o', 'url' => ['/tarif/index'], 'visible' => !Yii::$app->user->isGuest],
                 ['label' => 'Personil', 'icon' => ' fa fa-circle-o', 'url' => ['/personil/index'], 'visible' => !Yii::$app->user->isGuest],
-
                                         ], ],
         [
             'visible' => !Yii::$app->user->isGuest,
@@ -37,11 +36,10 @@ $menuItems =
             'url' => '#',
             'items' => [
                 ['label' => 'Mapping Alat Kelengkapan', 'icon' => ' fa fa-circle-o', 'url' => ['/alat-kelengkapan/index-mapping'], 'visible' => !Yii::$app->user->isGuest],
-
-                ]
-        ]
+                ['label' => 'Surat Perintah Tugas', 'icon' => ' fa fa-circle-o', 'url' => ['/surat-perintah-tugas/index'], 'visible' => !Yii::$app->user->isGuest],
+                ],
+        ],
             ];
-
 
  if (!Yii::$app->user->isGuest) {
      if (Yii::$app->user->identity->username !== 'admin') {
@@ -54,7 +52,7 @@ $menuItems =
 
 <?php
 NavBar::begin([
-        'brandLabel' => '<img src="'.Url::to(['/Image/logo.png']). '" class="pull-left"   /> ',
+        'brandLabel' => '<img src="'.Url::to(['/Image/logo.png']).'" class="pull-left"   /> ',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-inverse navbar-fixed-left',

@@ -67,7 +67,11 @@ $this->registerJSFile(Yii::$app->homeUrl.'js/start.js', ['depends' => [yii\web\J
       <?= (Mimin::checkRoute('alat-kelengkapan/index-mapping')) ? Html::a("
         <span class='fa fa-users icon'></span>
         <span class='branding-bar'>Mapping Alat Kelengkapan</span>
-         ", ['/alat-kelengkapan/index-mapping'], ['data-size' => 'wide' ,'data-role' => 'tile', 'class ' => 'bg-blue', 'data-effect' => 'animate-slide-up']) : ''; ?>
+         ", ['/alat-kelengkapan/index-mapping'], ['data-size' => 'wide', 'data-role' => 'tile', 'class ' => 'bg-blue', 'data-effect' => 'animate-slide-up']) : ''; ?>
+     <?= (Mimin::checkRoute('surat-perintah-tugas/index')) ? Html::a("
+        <span class='fa fa-file-text-o icon'></span>
+        <span class='branding-bar'>Surat Perintah Tugas</span>
+         ", ['/surat-perintah-tugas'], ['data-size' => 'wide', 'data-role' => 'tile', 'class ' => 'bg-green', 'data-effect' => 'animate-slide-up']) : ''; ?>
 
 </div>
 </div>
