@@ -14,10 +14,10 @@ $js = "
              $.post( '" . Url::to(['surat-perintah-tugas/alat-kelengkapan']) . "?id=' +id, function(data) {
                                                   data1 = JSON.parse(data)
                                                 var  i=0;
-                                                  $('#table-detail > tbody').parents('tr').first().remove();
                                                   $(data1).each(function(index, element) {
                                                $('#table-detail > tbody').append('<tr class=\"mdm-item\" data-key=\"'+i+'\" data-index=\"'+i+'\"><td>'+
                                               '<div class=\"form-group field-detsuratperintahtugas-'+i+'-id_personil\">'+
+                                              ' <input type=\"hidden\" value=\"'+element.id_personil+'\" name=\"DetSuratPerintahTugas['+i+'][id_personil] \"> '+
                                                element.nama_personil+
                                               '</div>'+
                                                '</td>'+
@@ -33,7 +33,9 @@ $js = "
                                                '</td>'+
                                                          '<td>'+
                                               '<div class=\"form-group field-detsuratperintahtugas-'+i+'jenis\">'+
-                                               element.jenis+
+                                                ' <input type=\"hidden\" value=\"'+element.jenis+'\" name=\"DetSuratPerintahTugas['+i+'][jenis] \"> '+
+
+                                              element.jenis+
                                               '</div>'+
                                                '</td>'+
                                                          '<td>'+
@@ -73,6 +75,7 @@ $data2 = ArrayHelper::map(
         <?= $form->errorSummary($model); ?> <!-- ADDED HERE -->
 
     <?= $form->field($model, 'no_spt')->textInput(['maxlength' => true]); ?>
+    <?= $form->field($model, 'dasar')->textInput(['maxlength' => true]); ?>
 
     <?= $form->field($model, 'tgl_surat')->widget(DateControl::className()); ?>
     <?= $form->field($model, 'untuk')->textarea(['rows' => 6]); ?>
@@ -97,6 +100,7 @@ $data2 = ArrayHelper::map(
 <table id="table-detail" class="table table-bordered table-hover kv-grid-table kv-table-wrap">
     <thead>
         <tr class="active">
+              <th>#</th>
            <th>Nama</th>
            <th>Pangkat</th>
            <th>Status</th>

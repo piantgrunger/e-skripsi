@@ -7,42 +7,23 @@ use kartik\select2\Select2;
 use yii\helpers\Url;
 use app\models\Personil;
 
-$data = ArrayHelper::map(Personil::find()->select(['id_personil','nama_personil'])->asArray()->all(), 'id_personil', 'nama_personil');
-
 ?>
 <td>
-<?= $form->field($model, "[$key]id_personil")->widget(Select2::className(), [
-    'data' => $data,
-    'options' => ['placeholder' => 'Pilih Personil...' ,
-            'onChange' => "$.post( '" . Url::to(['alat-kelengkapan/personil']) . "?id=' +$(this).val(), function(data) {
-                                                  data1 = JSON.parse(data)
-                                                  console.log(data1.nama_pangkat);
-                                                  $( '#detalatkelengkapan-$key-pangkat' ).val(data1.nama_pangkat);
-                                                  $( '#detalatkelengkapan-$key-status_personil' ).val(data1.status_personil);
-            })
-"
-        ,
-
-],
-    'pluginOptions' => [
-        'allowClear' => true,
-    ],
-])->label(false) ?>
+<?=$key?>
 </td>
-<td><?= $form->field($model, "[$key]pangkat")->textInput(["readOnly"=>true])->label(false) ?></td>
-<td><?= $form->field($model, "[$key]status_personil")->textInput(["readOnly" => true])->label(false) ?></td>
 <td>
-
-<?= $form->field($model, "[$key]jenis")->dropDownList([
-    'Ketua DPRD' => 'Ketua DPRD',
-    'Wakil Ketua DPRD' => 'Wakil Ketua DPRD',
-
-    'Ketua' => 'Ketua', 'Wakil Ketua' => 'Wakil Ketua',
-'Sekretaris' =>'Sekretaris','Anggota' =>'Anggota','Staff' =>'Staff'
-], ['prompt' =>''])->label(false) ?>
+<?= $form->field($model, "[$key]id_personil")->hiddenInput()->label(false) ?><?= $model->nama_personil;?>
+</td>
+<td><?= $model->pangkat;?></td>
+<td><?=$model->status_personil;?>
+</td>
+<td>
+<?=$model->jenis?>
+<?= $form->field($model, "[$key]jenis")->hiddenInput()->label(false) ?>
 
 </td>
  <td>
+<?= $form->field($model, "[$key]id_d_spt")->hiddenInput()->label(false) ?>
 
     <a data-action="delete" id='delete2'><span class="glyphicon glyphicon-trash">
 </td>

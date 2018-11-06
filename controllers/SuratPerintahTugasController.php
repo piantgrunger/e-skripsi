@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\DetAlatKelengkapan;
 use yii\helpers\Json;
+use kartik\mpdf\Pdf;
 
 /**
  * SuratPerintahTugasController implements the CRUD actions for SuratPerintahTugas model.
@@ -63,12 +64,58 @@ class SuratPerintahTugasController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
+
+    public function actionPrint1($id)
+    {
+        $content = $this->renderPartial('printspt', [
+            'model' => $this->findModel($id),
+        ]);
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+   // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+   // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+   // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+   // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+   // your html content input
+            'content' => $content,
+   // format content from your own css file if needed or use the
+   // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css',
+   // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+    // set mPDF properties on the fly
+            'options' => ['title' => 'Cetak Kelompok '],
+    // call mPDF methods on the fly
+        ]);
+        return $pdf->render();
+    }
     public function actionCreate()
     {
         $model = new SuratPerintahTugas();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_spt]);
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailSuratPerintahTugas = Yii::$app->request->post('DetSuratPerintahTugas', []);
+                //die(var_dump($model->detailAlatKelengkapan));
+                if ($model->save()) {
+                    $transaction->commit();
+                    return $this->redirect(['index']);
+                }
+            } catch (\yii\db\IntegrityException $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', 'Data Tidak Dapat Direvisi Karena Dipakai Modul Lain');
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -86,8 +133,25 @@ class SuratPerintahTugasController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id_spt]);
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailSuratPerintahTugas = Yii::$app->request->post('DetSuratPerintahTugas', []);
+                //die(var_dump($model->detailAlatKelengkapan));
+                if ($model->save()) {
+                    $transaction->commit();
+                    return $this->redirect(['index']);
+                }
+            } catch (\yii\db\IntegrityException $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', 'Data Tidak Dapat Direvisi Karena Dipakai Modul Lain');
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         } else {
             return $this->render('update', [
                 'model' => $model,

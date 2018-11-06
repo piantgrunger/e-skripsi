@@ -41,10 +41,10 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
             [['no_spt', 'tgl_surat', 'untuk', 'tujuan', 'zona', 'tgl_awal'], 'required'],
             [['tgl_surat', 'tgl_awal', 'tgl_akhir'], 'safe'],
             [['id_alat_kelengkapan'], 'integer'],
-            [['untuk', 'tujuan'], 'string'],
+            [['untuk', 'tujuan','dasar'], 'string'],
             [['no_spt'], 'string', 'max' => 50],
             [['zona', 'penanda_tangan'], 'string', 'max' => 100],
-            [['id_alat_kelengkapan'], 'exist', 'skipOnError' => true, 'targetClass' => SuratPerintahTugas::className(), 'targetAttribute' => ['id_alat_kelengkapan' => 'id_alat_kelengkapan']],
+         [['id_alat_kelengkapan'], 'exist', 'skipOnError' => true, 'targetClass' => AlatKelengkapan::className(), 'targetAttribute' => ['id_alat_kelengkapan' => 'id_alat_kelengkapan']],
         ];
     }
 
