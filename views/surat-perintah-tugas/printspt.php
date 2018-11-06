@@ -3,21 +3,14 @@ use yii\helpers\Url;
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-</head>
-
-<body>
 <table width="100%" cellpadding="0" cellspacing="0">
 <tr>
-    <td width="100%" height="56" colspan="3" align="left" valign="top"><img src="<?=Url::to(["/image/Kop1.png"])?>" width="706" height="145" /></td>
+    <td width="100%" height="56" colspan="3" align="left" valign="top"><img src="<?=Url::to(['/image/Kop'.$mode.'.png']); ?>" width="706" height="145" /></td>
 
   </tr>
 </table>
-<table width="708" height="954" border="0" cellpadding="3" cellspacing="0">
+<table  border="0" cellpadding="3" cellspacing="0">
   <tr>
     <td colspan="13" align="center">&nbsp;</td>
   </tr>
@@ -51,23 +44,38 @@ use yii\helpers\Url;
         $i = 0;
         foreach ($model->detailSuratPerintahTugas as $key => $row) {
             ++$i; ?>
-      <div class="container">
-      <div style="">
-        <div style="float:left"><?php echo $i.'.'.'&nbsp;'; ?></div>
-        <div>Nama : <?php echo $row->nama_personil; ?></div>
+
+        <div style="margin-bottom: 1px"><?php echo $i.'.'.'&nbsp;'; ?>  <?php echo $row->nama_personil; ?></div>
         <?php if ($row->status_personil !== 'Dewan') {
                 ?>
         <div>&nbsp;&nbsp;&nbsp;&nbsp;NIP : <?php echo $row->nip; ?></div>
         <div>&nbsp;&nbsp;&nbsp;&nbsp;Pangkat/Golongan : <?php echo $row->pangkat; ?></div>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp;Jabatan : <?php echo $row->jenis; ?></div>
+        
+        <div>&nbsp;&nbsp;&nbsp;&nbsp; </div>
         <?php
             } ?>
-        <div>&nbsp;&nbsp;&nbsp;&nbsp; </div>
 
-        </div>
       <?php
         } ?>    </td>
+
+    
   </tr>
+  <tr>
+    <td height="18" colspan="13">&nbsp;</td>
+  </tr>
+ 
+
+<?php if ($row->status_personil === 'Dewan') {
+            ?>
+<tr  class="isi">
+<td height="18" align="right">&nbsp;</td>
+  	<td align="left" valign="top">Jabatan</td>
+  	<td align="left" valign="top">:</td>
+    <td  colspan="13" align="left"><?= $model->nama_alat_kelengkapan; ?></td>
+    </tr>
+<?php
+        } ?> 
+        </tr>
 
 
   <tr>
@@ -100,10 +108,10 @@ use yii\helpers\Url;
             'Fri' => 'Jumat',
             'Sat' => 'Sabtu',
         );
-        echo $daftarHari[$day];
+
     ?>
     </div>
-    <div style="float:left"> <?php echo ($tglHari!==$tglHari2)? "&nbsp;-".$daftarHari[$day2] :""; ?></div></td>
+    <div style="float:left">   <?= $daftarHari[$day]; ?> <?php echo ($tglHari !== $tglHari2) ? '&nbsp;-'.$daftarHari[$day2] : ''; ?></div></td>
   </tr>
   <tr class = "isi">
     <td height="18" colspan="3">&nbsp;</td>
@@ -134,7 +142,7 @@ use yii\helpers\Url;
             $format1 = date('d F Y', strtotime($model->tgl_akhir));
  echo $format1;*/
         //echo date('d', strtotime($model->tgl_akhir)).'  '.(ucfirst($bulan[date('m')])).'  '.date('Y');
-    function tgl_indo($tgl, $cetak_hari = false)
+    function tanggal_indo($tgl, $cetak_hari = false)
     {
         $hari = array(1 => 'Senin',
                 'Selasa',
@@ -186,7 +194,22 @@ if ($bulanSaja1 == $bulanSaja2) {
 //echo "Batas:". $batas;
     ?>
       </div>
-      <div style="float:left"> <?php echo tgl_indo($tgl, false); ?>&nbsp;-&nbsp; <?php echo tgl_indo($tgl2, false); ?>
+      <div style="float:left"><?php
+      $tanggal = $model->tgl_awal;
+      $tanggal2 = $model->tgl_akhir;
+      $tgl = explode(' ', tanggal_indo($tanggal, false));
+      $tgl2 = explode(' ', tanggal_indo($tanggal2, false));
+
+        if ($tgl[1] !== $tgl2[1]) {
+            echo tanggal_indo($tanggal, false); ?>&nbsp; <?php echo ($tanggal !== $tanggal2) ? '-&nbsp;'.tanggal_indo($tanggal2, false) : '';
+        } else {
+            if ($tgl[0] !== $tgl2[0]) {
+                echo $tgl[0].' - '.$tgl2[0].'  '.$tgl[1].'  '.$tgl[2];
+            } else {
+                echo tanggal_indo($tanggal, false); ?>&nbsp; <?php echo ($tanggal !== $tanggal2) ? '-&nbsp;'.tanggal_indo($tanggal2, false) : '';
+            }
+        }
+       ?>
     </div></td>
   </tr>
   <tr class = "isi">
@@ -209,19 +232,13 @@ if ($bulanSaja1 == $bulanSaja2) {
   <tr>
     <td height="18" colspan="13">&nbsp;</td>
   </tr>
-  <tr>
-    <td height="18" colspan="13">&nbsp;</td>
-  </tr>
-  <tr>
-    <td height="18" colspan="13">&nbsp;</td>
-  </tr>
   <tr class = "isi">
     <td height="16" colspan="11" align="right">Ditetapkan di&nbsp;&nbsp;</td>
     <td colspan="2">:&nbsp;S I D O A R J O</td>
   </tr>
   <tr class = "isi">
     <td height="18" colspan="11" align="right">Pada tgl&nbsp;</td>
-    <td colspan="2">:&nbsp;<?php echo tgl_indo($tglSurat, false); ?></td>
+    <td colspan="2">:&nbsp;<?php echo tanggal_indo($tglSurat, false); ?></td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -304,41 +321,5 @@ if ($bulanSaja1 == $bulanSaja2) {
     <td>&nbsp;</td>
     <td colspan="5" align="right"><?php echo $model->penanda_tangan; ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
   </tr>
-  <tr class ="isi">
-    <td colspan="9">&nbsp;</td>
-    <td align="center"></td>
-    <td colspan="2" align="center"></td>
-    <td colspan="4" align="center">&nbsp;</td>
-  </tr>
-  <tr class = "isi">
-    <td colspan="7">&nbsp;</td>
-    <td colspan="5" align="center">&nbsp;</td>
-    <td colspan="4" align="center">&nbsp;</td>
-  </tr>
-  <tr class = "isi">
-    <td colspan="7">&nbsp;</td>
-    <td colspan="5" align="center">&nbsp;</td>
-    <td colspan="4" align="center"></td>
-  </tr>
-  <tr class = "isi">
-    <td colspan="7">&nbsp;</td>
-    <td colspan="5" align="center">&nbsp;</td>
-    <td colspan="4" align="center">&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan="13">&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan="13">&nbsp;</td>
-  </tr>
-  <tr>
-    <td colspan="13">&nbsp;</td>
-  </tr>
-  <tr class = "isi">
-    <td colspan="7">&nbsp;</td>
-    <td colspan="5" align="center"></td>
-    <td colspan="4" align="center"></td>
-  </tr>
+  
 </table>
-</body>
-</html>

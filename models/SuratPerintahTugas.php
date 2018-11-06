@@ -38,10 +38,10 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['no_spt', 'tgl_surat', 'untuk', 'tujuan', 'zona', 'tgl_awal'], 'required'],
+            [['no_spt', 'tgl_surat', 'untuk', 'tujuan', 'zona', 'tgl_awal', 'dasar', 'jenis'], 'required'],
             [['tgl_surat', 'tgl_awal', 'tgl_akhir'], 'safe'],
             [['id_alat_kelengkapan'], 'integer'],
-            [['untuk', 'tujuan','dasar'], 'string'],
+            [['untuk', 'tujuan', 'dasar', 'jenis'], 'string'],
             [['no_spt'], 'string', 'max' => 50],
             [['zona', 'penanda_tangan'], 'string', 'max' => 100],
          [['id_alat_kelengkapan'], 'exist', 'skipOnError' => true, 'targetClass' => AlatKelengkapan::className(), 'targetAttribute' => ['id_alat_kelengkapan' => 'id_alat_kelengkapan']],
@@ -70,9 +70,14 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSuratPerintahTugas()
+    public function getAlatKelengkapan()
     {
-        return $this->hasOne(SuratPerintahTugas::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan']);
+        return $this->hasOne(AlatKelengkapan::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan']);
+    }
+
+    public function getNama_alat_kelengkapan()
+    {
+        return is_null($this->alatKelengkapan) ? '' : $this->alatKelengkapan->alat_kelengkapan;
     }
 
     public function getDetailSuratPerintahTugas()

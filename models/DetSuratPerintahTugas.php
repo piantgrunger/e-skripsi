@@ -65,16 +65,24 @@ class DetSuratPerintahTugas extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Personil::className(), ['id_personil' => 'id_personil']);
     }
+
     public function getPangkat()
     {
-        return is_null($this->personil) ? "" : $this->personil->nama_pangkat;
+        return is_null($this->personil) ? '' : $this->personil->nama_pangkat;
     }
+
     public function getStatus_personil()
     {
-        return is_null($this->personil) ? "" : $this->personil->status_personil;
+        return is_null($this->personil) ? '' : $this->personil->status_personil;
     }
+
     public function getNama_personil()
     {
-        return is_null($this->personil) ? "" : $this->personil->nama_personil;
+        return is_null($this->personil) ? '' : $this->personil->nama_personil;
+    }
+
+    public function getNip()
+    {
+        return is_null($this->personil) ? '' : $this->personil->nip;
     }
 }

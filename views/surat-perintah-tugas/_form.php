@@ -11,11 +11,20 @@ use yii\helpers\Url;
 
 $js = "
              let id = $(this).val();
-             $.post( '" . Url::to(['surat-perintah-tugas/alat-kelengkapan']) . "?id=' +id, function(data) {
+             let jenis=$('#suratperintahtugas-jenis').find(\":selected\").text();
+        
+             $.post( '".Url::to(['surat-perintah-tugas/alat-kelengkapan'])."?id=' +id+'&jenis='+jenis, function(data) {
                                                   data1 = JSON.parse(data)
+                                                  $('#table-detail > tbody').html(\"\");
                                                 var  i=0;
                                                   $(data1).each(function(index, element) {
-                                               $('#table-detail > tbody').append('<tr class=\"mdm-item\" data-key=\"'+i+'\" data-index=\"'+i+'\"><td>'+
+                                               $('#table-detail > tbody').append('<tr class=\"mdm-item\" data-key=\"'+i+'\" data-index=\"'+i+'\">'+
+                                               '<td>'+
+                                               '<div class=\"form-group field-detsuratperintahtugas-'+i+'-id_personil\">'+
+                                               (i+1) +
+                                               '</div>'+
+                                               '</td>'+
+                                               '<td>'+
                                               '<div class=\"form-group field-detsuratperintahtugas-'+i+'-id_personil\">'+
                                               ' <input type=\"hidden\" value=\"'+element.id_personil+'\" name=\"DetSuratPerintahTugas['+i+'][id_personil] \"> '+
                                                element.nama_personil+
@@ -73,6 +82,9 @@ $data2 = ArrayHelper::map(
 
     <?php $form = ActiveForm::begin(); ?>
         <?= $form->errorSummary($model); ?> <!-- ADDED HERE -->
+        <?= $form->field($model, 'jenis')->dropDownList(['Dewan' => 'Dewan',
+'Staff' => 'Staff',
+], ['prompt' => '']); ?>
 
     <?= $form->field($model, 'no_spt')->textInput(['maxlength' => true]); ?>
     <?= $form->field($model, 'dasar')->textInput(['maxlength' => true]); ?>
@@ -83,7 +95,7 @@ $data2 = ArrayHelper::map(
     <?= $form->field($model, 'id_alat_kelengkapan')->widget(Select2::className(), [
           'data' => $data,
         'options' => ['placeholder' => 'Pilih Alat Kelengkapan...',
-        'onChange' =>$js],
+        'onChange' => $js, ],
         'pluginOptions' => [
             'allowClear' => true,
         ],
