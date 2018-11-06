@@ -2,7 +2,7 @@
 
 ?>
 <td>
-<?=$key + 1; ?>
+<?=is_null($key) ? 0 : $key + 1; ?>
 </td>
 <td>
 <?= $form->field($model, "[$key]id_personil")->hiddenInput()->label(false); ?><?= $model->nama_personil; ?>
