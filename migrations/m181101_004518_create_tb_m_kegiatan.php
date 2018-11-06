@@ -15,9 +15,9 @@ class m181101_004518_create_tb_m_kegiatan extends Migration
     {
         $this->createTable('tb_m_kegiatan', [
             'id_kegiatan' => $this->primaryKey(),
-            'nama_kegiatan' => $this->string(50)->notNull(),
-            'Rekening' => $this->string(50)->notNull(),
-           'Daerah' => " Enum('Dalam Daerah','Luar Daerah','Luar Negeri')"
+            'nama_kegiatan' => $this->string(100)->notNull(),
+            'Rekening' => $this->string(100)->notNull(),
+           'Daerah' =>$this->string(100)->notNull()
 
         ]);
         $source = Yii::getAlias('@app/migrations/kegiatan.csv');

@@ -19,7 +19,7 @@ class m181104_000113_tb_d_alat extends Migration
 
             'id_alat_kelengkapan' => $this->integer(),
              'id_personil' => $this->integer(),
-             'jenis' => "enum('Ketua','Wakil Ketua','Sekretaris','Anggota','Staff','Ketua DPRD','Wakil Ketua DPRD' )"
+             'jenis' => $this->string(100)
         ]);
         $this->addForeignKey(
             'fk_id_alkel',
@@ -54,7 +54,7 @@ class m181104_000113_tb_d_alat extends Migration
                         $row[0],
                         $row[1],
                         $row[2],
-                        $pangkat->nama_pangkat,
+                       ucfirst($pangkat->nama_pangkat),
 
                     ]
                 );

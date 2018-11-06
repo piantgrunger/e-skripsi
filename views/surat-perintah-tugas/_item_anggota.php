@@ -1,4 +1,5 @@
 <?php
+$key = is_numeric($key) ? $key : 0;
 
 ?>
 <td>

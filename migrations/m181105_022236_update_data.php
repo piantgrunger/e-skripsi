@@ -26,9 +26,7 @@ select id_personil  from tb_m_personil where id_personil in (
      */
     public function safeDown()
     {
-        echo "m181105_022236_update_data cannot be reverted.\n";
 
-        return false;
     }
 
     /*

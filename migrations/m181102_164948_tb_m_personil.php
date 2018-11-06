@@ -20,7 +20,7 @@ class m181102_164948_tb_m_personil extends Migration
 
             'nama_personil' => $this->string(50)->notNull(),
             'status_personil' => "enum('Dewan','Staff') not null ",
-            'golongan' => "enum('Gol I','Gol II','Gol III','Gol IV','Eselon I','Eselon II','Eselon III','Eselon IV')",
+            'golongan' => $this->string(100),
             'id_pangkat' => $this->integer(),
             'setuju' => $this->integer(),
             'mengetahui' => $this->integer(),

@@ -6,7 +6,7 @@ use yii\helpers\Url;
 
 <table width="100%" cellpadding="0" cellspacing="0">
 <tr>
-    <td width="100%" height="56" colspan="3" align="left" valign="top"><img src="<?=Url::to(['/image/Kop'.$mode.'.png']); ?>" width="706" height="145" /></td>
+    <td width="100%" height="56" colspan="3" align="left" valign="top"><img src="<?=Url::to(['/Image/Kop'.$mode.'.png']); ?>" width="706" height="145" /></td>
 
   </tr>
 </table>

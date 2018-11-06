@@ -37,8 +37,8 @@ $data = ArrayHelper::map(Personil::find()->select(['id_personil','nama_personil'
     'Ketua DPRD' => 'Ketua DPRD',
     'Wakil Ketua DPRD' => 'Wakil Ketua DPRD',
 
-    'Ketua' => 'Ketua', 'Wakil Ketua' => 'Wakil Ketua',
-'Sekretaris' =>'Sekretaris','Anggota' =>'Anggota','Staff' =>'Staff'
+    'KETUA' => 'Ketua', 'WAKIL KETUA' => 'Wakil Ketua',
+'SEKRETARIS' =>'Sekretaris','ANGGOTA' =>'Anggota','STAFF' =>'Staff'
 ], ['prompt' =>''])->label(false) ?>
 
 </td>
