@@ -48,6 +48,7 @@ class SuratPerintahTugasController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
     public function actionIndexSppd()
     {
         $searchModel = new SPPDSearch();
@@ -60,7 +61,6 @@ class SuratPerintahTugasController extends Controller
             'dataProvider' => $dataProvider,
             'searchModel1' => $searchModel1,
             'dataProvider1' => $dataProvider1,
-
         ]);
     }
 
@@ -109,6 +109,99 @@ class SuratPerintahTugasController extends Controller
             'cssInline' => '.kv-heading-1{font-size:18px}',
     // set mPDF properties on the fly
             'options' => ['title' => 'Cetak SPT '],
+    // call mPDF methods on the fly
+        ]);
+
+        return $pdf->render();
+    }
+
+    public function actionPrintSppd1($id)
+    {
+        $content = $this->renderPartial('printsppd', [
+            'model' => $this->findModel($id),
+            'mode' => 1,
+        ]);
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+   // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+   // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+   // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+   // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+   // your html content input
+            'content' => $content,
+   // format content from your own css file if needed or use the
+   // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@app/web/css/print.css',
+   // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+    // set mPDF properties on the fly
+            'options' => ['title' => 'Cetak SPPD '],
+    // call mPDF methods on the fly
+        ]);
+
+        return $pdf->render();
+    }
+
+    public function actionPrintSppd2($id)
+    {
+        $content = $this->renderPartial('printsppd', [
+            'model' => $this->findModel($id),
+            'mode' => 2,
+        ]);
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+   // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+   // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+   // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+   // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+   // your html content input
+            'content' => $content,
+   // format content from your own css file if needed or use the
+   // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@app/web/css/print.css',
+   // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+    // set mPDF properties on the fly
+            'options' => ['title' => 'Cetak SPPD '],
+    // call mPDF methods on the fly
+        ]);
+
+        return $pdf->render();
+    }
+
+    public function actionPrintSppd3($id)
+    {
+        $content = $this->renderPartial('printsppd', [
+            'model' => $this->findModel($id),
+            'mode' => 3,
+        ]);
+        // setup kartik\mpdf\Pdf component
+        $pdf = new Pdf([
+   // set to use core fonts only
+            'mode' => Pdf::MODE_UTF8,
+   // A4 paper format
+            'format' => Pdf::FORMAT_A4,
+   // portrait orientation
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+   // stream to browser inline
+            'destination' => Pdf::DEST_BROWSER,
+   // your html content input
+            'content' => $content,
+   // format content from your own css file if needed or use the
+   // enhanced bootstrap css built by Krajee for mPDF formatting
+            'cssFile' => '@app/web/css/print.css',
+   // any css to be embedded if required
+            'cssInline' => '.kv-heading-1{font-size:18px}',
+    // set mPDF properties on the fly
+            'options' => ['title' => 'Cetak SPPD '],
     // call mPDF methods on the fly
         ]);
 
@@ -217,7 +310,6 @@ class SuratPerintahTugasController extends Controller
      *
      * @return mixed
      */
-
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

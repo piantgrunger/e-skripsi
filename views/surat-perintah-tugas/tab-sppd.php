@@ -20,18 +20,47 @@ $gridColumns = [
     'penanda_tangan',
 
     [
-        'class' => 'kartik\grid\ActionColumn', 'template' => '{sppd}',
+        'class' => 'kartik\grid\ActionColumn', 'template' => '{sppd} {sppd2} {sppd3}',
         'buttons' => [
-
             'sppd' => function ($url, $model) {
-                if (Mimin::checkRoute($this->context->id . '/print2')) {
+                if (Mimin::checkRoute($this->context->id.'/print-sppd1')) {
                     return
                         Html::a(
-                        'Cetak SPPD',
-                        ['print3', 'id' => $model->id_spt],
+                        '<span class="glyphicon glyphicon-print"></span> ',
+                        ['print-sppd1', 'id' => $model->id_spt],
                         [
-                            'class' => 'btn btn-primary'
-
+                            'title' => Yii::t('app', 'Dewan'),
+                            'data-pjax' => 0,
+                        ]
+                    );
+                } else {
+                    return ' ';
+                }
+            },
+            'sppd2' => function ($url, $model) {
+                if (Mimin::checkRoute($this->context->id.'/print-sppd2')) {
+                    return
+                        Html::a(
+                        '<span class="glyphicon glyphicon-print"></span> ',
+                        ['print-sppd2', 'id' => $model->id_spt],
+                        [
+                            'title' => Yii::t('app', 'Sekretariat Dewan'),
+                            'data-pjax' => 0,
+                        ]
+                    );
+                } else {
+                    return ' ';
+                }
+            },
+            'sppd3' => function ($url, $model) {
+                if (Mimin::checkRoute($this->context->id.'/print-sppd3')) {
+                    return
+                        Html::a(
+                        '<span class="glyphicon glyphicon-print"></span> ',
+                        ['print-sppd3', 'id' => $model->id_spt],
+                        [
+                            'title' => Yii::t('app', 'Sekretariat Daerah'),
+                            'data-pjax' => 0,
                         ]
                     );
                 } else {
@@ -64,10 +93,9 @@ $gridColumns = [
 
         'panel' => [
             'type' => GridView::TYPE_INFO,
-            'heading' => '<i class="glyphicon glyphicon-tasks"></i>  <strong> ' . Yii::t('app', 'Surat Perintah Perjalanan Dinas') . '</strong>',
+            'heading' => '<i class="glyphicon glyphicon-tasks"></i>  <strong> '.Yii::t('app', 'Surat Perintah Perjalanan Dinas').'</strong>',
         ],
         'toolbar' => [
-
             '{export}',
             '{toggleData}',
         ],

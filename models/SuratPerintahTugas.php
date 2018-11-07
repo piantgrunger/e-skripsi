@@ -38,8 +38,8 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['no_spt', 'tgl_surat', 'untuk', 'tujuan', 'zona', 'tgl_awal', 'dasar', 'jenis','tgl_akhir'], 'required'],
-            [['kendaraan','id_kegiatan','id_kota'], 'safe'],
+            [['no_spt', 'tgl_surat', 'untuk', 'tujuan', 'zona', 'tgl_awal', 'dasar', 'jenis', 'tgl_akhir'], 'required'],
+            [['kendaraan', 'id_kegiatan', 'id_kota'], 'safe'],
             [['id_alat_kelengkapan'], 'integer'],
             [['untuk', 'tujuan', 'dasar', 'jenis'], 'string'],
             [['no_spt'], 'string', 'max' => 50],
@@ -75,9 +75,43 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
         return $this->hasOne(AlatKelengkapan::className(), ['id_alat_kelengkapan' => 'id_alat_kelengkapan']);
     }
 
+    public function getKota()
+    {
+        return $this->hasOne(Kota::className(), ['id_kota' => 'id_kota']);
+    }
+
+    public function getKegiatan()
+    {
+        return $this->hasOne(Kegiatan::className(), ['id_kegiatan' => 'id_kegiatan']);
+    }
+
     public function getNama_alat_kelengkapan()
     {
         return is_null($this->alatKelengkapan) ? '' : $this->alatKelengkapan->alat_kelengkapan;
+    }
+
+    public function getNama_kota()
+    {
+        return is_null($this->kota) ? '' : $this->kota->nama_kota;
+    }
+
+    public function getNama_kegiatan()
+    {
+        return is_null($this->kegiatan) ? '' : $this->kegiatan->nama_kegiatan;
+    }
+
+    public function getRekening()
+    {
+        return is_null($this->kegiatan) ? '' : $this->kegiatan->Rekening;
+    }
+
+    public function getSelisih()
+    {
+        //   return date_diff(date_create($this->tgl_akhir), date_create($this->tgl_awal));
+        $date = new \DateTime($this->tgl_awal);
+        $date2 = new \DateTime($this->tgl_akhir);
+
+        return $date->diff($date2)->d;
     }
 
     public function getDetailSuratPerintahTugas()
