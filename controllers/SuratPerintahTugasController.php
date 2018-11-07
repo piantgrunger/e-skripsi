@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\SuratPerintahTugas;
 use app\models\SuratPerintahTugasSearch;
+use app\models\SPPDSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -45,6 +46,21 @@ class SuratPerintahTugasController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+        ]);
+    }
+    public function actionIndexSppd()
+    {
+        $searchModel = new SPPDSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 0);
+        $searchModel1 = new SPPDSearch();
+        $dataProvider1 = $searchModel->search(Yii::$app->request->queryParams, 1);
+
+        return $this->render('index-sppd', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'searchModel1' => $searchModel1,
+            'dataProvider1' => $dataProvider1,
+
         ]);
     }
 
@@ -201,6 +217,7 @@ class SuratPerintahTugasController extends Controller
      *
      * @return mixed
      */
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -228,6 +245,37 @@ class SuratPerintahTugasController extends Controller
             ]);
         } else {
             return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
+
+    public function actionSppd($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                //die(var_dump($model->detailAlatKelengkapan));
+                if ($model->save()) {
+                    $transaction->commit();
+
+                    return $this->redirect(['index']);
+                }
+            } catch (\yii\db\IntegrityException $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', 'Data Tidak Dapat Direvisi Karena Dipakai Modul Lain');
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+
+            return $this->render('sppd', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('sppd', [
                 'model' => $model,
             ]);
         }

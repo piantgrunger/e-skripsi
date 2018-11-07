@@ -38,8 +38,8 @@ class SuratPerintahTugas extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['no_spt', 'tgl_surat', 'untuk', 'tujuan', 'zona', 'tgl_awal', 'dasar', 'jenis'], 'required'],
-            [['tgl_surat', 'tgl_awal', 'tgl_akhir'], 'safe'],
+            [['no_spt', 'tgl_surat', 'untuk', 'tujuan', 'zona', 'tgl_awal', 'dasar', 'jenis','tgl_akhir'], 'required'],
+            [['kendaraan','id_kegiatan','id_kota'], 'safe'],
             [['id_alat_kelengkapan'], 'integer'],
             [['untuk', 'tujuan', 'dasar', 'jenis'], 'string'],
             [['no_spt'], 'string', 'max' => 50],

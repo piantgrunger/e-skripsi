@@ -8,14 +8,15 @@ use yii\widgets\Pjax;
 
 $gridColumns = [['class' => 'kartik\grid\SerialColumn'],
             'no_spt',
-            'tgl_surat',
+            'tgl_surat:date',
+            'dasar',
             'nama_alat_kelengkapan',
             'untuk:ntext',
-            // 'tujuan:ntext',
-            // 'zona',
-            // 'tgl_awal',
-            // 'tgl_akhir',
-            // 'penanda_tangan',
+             'tujuan:ntext',
+             'zona',
+             'tgl_awal:date',
+             'tgl_akhir:date',
+             'penanda_tangan',
 
          ['class' => 'kartik\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
               'update', 'delete', 'view', ], $this->context->route).'{print1}  {print2} {print3}',
@@ -51,7 +52,7 @@ $gridColumns = [['class' => 'kartik\grid\SerialColumn'],
                     }
                 },
                 'print3' => function ($url, $model) {
-                    if (Mimin::checkRoute($this->context->id.'/print2')) {
+                    if (Mimin::checkRoute($this->context->id.'/print3')) {
                         return
                             Html::a(
                             '<span class="glyphicon glyphicon-print"></span>',
