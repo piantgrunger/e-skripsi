@@ -29,7 +29,7 @@ $config = [
       // 'site/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
-        'queue/*'
+        'queue/*',
     ],
 ],
 
@@ -98,8 +98,14 @@ $config = [
   // set source language to be English
   'sourceLanguage' => 'en-US',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log','queue'],
+    'bootstrap' => ['log', 'queue'],
     'components' => [
+        'formatter' => [
+            'dateFormat' => 'dd MMM yyyy',
+            'decimalSeparator' => ',',
+            'thousandSeparator' => ' ',
+            'currencyCode' => 'Rp',
+       ],
 
         'queue' => [
             'class' => \yii\queue\db\Queue::class,
@@ -212,7 +218,6 @@ if (YII_ENV_DEV) {
             'panels' => [
                 'queue' => \yii\queue\debug\Panel::class,
             ],
-
     ];
 
     $config['bootstrap'][] = 'gii';

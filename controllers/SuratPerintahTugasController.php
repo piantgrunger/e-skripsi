@@ -12,6 +12,9 @@ use yii\filters\VerbFilter;
 use app\models\DetAlatKelengkapan;
 use yii\helpers\Json;
 use kartik\mpdf\Pdf;
+use app\models\DetSuratPerintahTugas;
+use app\models\SubSuratPerintahTugas;
+use app\models\Tarif;
 
 /**
  * SuratPerintahTugasController implements the CRUD actions for SuratPerintahTugas model.
@@ -74,6 +77,40 @@ class SuratPerintahTugasController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
+            'model' => $this->findModel($id),
+        ]);
+    }
+
+    public function actionBiaya($id)
+    {
+        $model = DetSuratPerintahTugas::find()->where(['id_d_spt' => $id])->one();
+
+        if (count($model->subDetPerintahTugas) === 0) {
+            $dataBiaya = Tarif::find()->where(['id_pangkat' => $model->id_pangkat, 'tujuan' => $model->suratPerintahTugas->zona])->all();
+            $list = [];
+            foreach ($dataBiaya as $data) {
+                $model1 = new SubSuratPerintahTugas();
+                $model1->nama_biaya = $data->nama_biaya;
+                $model1->anggaran = $data->biaya;
+
+                $model1->id_d_spt = $model->id_d_spt;
+                $model1->id_spt = $model->id_spt;
+
+                array_push($list, $model1);
+            }
+            if (count($list) > 0) {
+                $model->subDetPerintahTugas = $list;
+            }
+        }
+
+        return $this->renderAjax('biaya', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionRealisasi($id)
+    {
+        return $this->render('realisasi', [
             'model' => $this->findModel($id),
         ]);
     }

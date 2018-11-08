@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use mdm\behaviors\ar\RelationTrait;
 use Yii;
 
 /**
@@ -16,6 +17,8 @@ use Yii;
  */
 class DetSuratPerintahTugas extends \yii\db\ActiveRecord
 {
+    use RelationTrait;
+
     /**
      * {@inheritdoc}
      */
@@ -53,9 +56,19 @@ class DetSuratPerintahTugas extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function geSuratPerintahTugas()
+    public function getSuratPerintahTugas()
     {
         return $this->hasOne(SuratPerintahTugas::className(), ['id_spt' => 'id_spt']);
+    }
+
+    public function getSubDetPerintahTugas()
+    {
+        return $this->hasMany(SubSuratPerintahTugas::className(), ['id_d_spt' => 'id_d_spt']);
+    }
+
+    public function setSubDetPerintahTugas($value)
+    {
+        return $this->loadRelated('subDetPerintahTugas', $value);
     }
 
     /**
@@ -69,6 +82,11 @@ class DetSuratPerintahTugas extends \yii\db\ActiveRecord
     public function getPangkat()
     {
         return is_null($this->personil) ? '' : $this->personil->nama_pangkat;
+    }
+
+    public function getId_pangkat()
+    {
+        return is_null($this->personil) ? 0 : $this->personil->id_pangkat;
     }
 
     public function getStatus_personil()

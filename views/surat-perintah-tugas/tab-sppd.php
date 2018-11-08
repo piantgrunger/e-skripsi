@@ -20,7 +20,7 @@ $gridColumns = [
     'penanda_tangan',
 
     [
-        'class' => 'kartik\grid\ActionColumn', 'template' => '{sppd} {sppd2} {sppd3}',
+        'class' => 'kartik\grid\ActionColumn', 'template' => '{sppd} {sppd2} {sppd3} {realisasi}',
         'buttons' => [
             'sppd' => function ($url, $model) {
                 if (Mimin::checkRoute($this->context->id.'/print-sppd1')) {
@@ -59,6 +59,21 @@ $gridColumns = [
                         '<span class="glyphicon glyphicon-print"></span> ',
                         ['print-sppd3', 'id' => $model->id_spt],
                         [
+                            'title' => Yii::t('app', 'Sekretariat Daerah'),
+                            'data-pjax' => 0,
+                        ]
+                    );
+                } else {
+                    return ' ';
+                }
+            },   'realisasi' => function ($url, $model) {
+                if (Mimin::checkRoute($this->context->id.'/realisasi')) {
+                    return
+                        Html::a(
+                        'Realisasi',
+                        ['realisasi', 'id' => $model->id_spt],
+                        [
+                            'class' => 'btn btn-info',
                             'title' => Yii::t('app', 'Sekretariat Daerah'),
                             'data-pjax' => 0,
                         ]
