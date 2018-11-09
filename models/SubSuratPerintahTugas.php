@@ -36,7 +36,7 @@ class SubSuratPerintahTugas extends \yii\db\ActiveRecord
             [['anggaran', 'realisasi'], 'number'],
             [['nama_biaya'], 'string', 'max' => 100],
             [['id_d_spt'], 'exist', 'skipOnError' => true, 'targetClass' => DetSuratPerintahTugas::className(), 'targetAttribute' => ['id_d_spt' => 'id_d_spt']],
-            [['id_spt'], 'exist', 'skipOnError' => true, 'targetClass' => SuratPerintahTugas::className(), 'targetAttribute' => ['id_spt' => 'id_spt']],
+        //    [['id_spt'], 'exist', 'skipOnError' => true, 'targetClass' => SuratPerintahTugas::className(), 'targetAttribute' => ['id_spt' => 'id_spt']],
         ];
     }
 

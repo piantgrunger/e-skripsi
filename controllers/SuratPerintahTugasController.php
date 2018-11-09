@@ -103,9 +103,31 @@ class SuratPerintahTugasController extends Controller
             }
         }
 
-        return $this->renderAjax('biaya', [
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->subDetPerintahTugas = Yii::$app->request->post('SubSuratPerintahTugas', []);
+
+                if ($model->save()) {
+                    $transaction->commit();
+
+                    echo '1';
+                    //  return $this->redirect(['index']);
+                }
+            } catch (\yii\db\IntegrityException $e) {
+                $transaction->rollBack();
+                Yii::$app->session->setFlash('error', 'Data Tidak Dapat Direvisi Karena Dipakai Modul Lain');
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+
+            echo  '0';
+        } else {
+            return $this->renderAjax('biaya', [
             'model' => $model,
         ]);
+        }
     }
 
     public function actionRealisasi($id)

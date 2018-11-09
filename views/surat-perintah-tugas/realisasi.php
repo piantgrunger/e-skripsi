@@ -20,6 +20,7 @@ $formatter = \Yii::$app->formatter;
                 'header' => '<h4>Data Realisasi Biaya</h4>',
                 'id' => 'modal',
                 'size' => 'modal-lg',
+                'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
             ]);
         echo "<div id='modalContent'></div>";
         Modal::end();
