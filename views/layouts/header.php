@@ -14,32 +14,9 @@ $menuItems =
                         'items' => [
                     ['label' => 'App. Route', 'icon' => 'fa fa-circle-o', 'url' => ['/mimin/route/'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'Role', 'icon' => 'fa fa-circle-o', 'url' => ['/mimin/role/'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'User', 'icon' => ' fa fa-circle-o', 'url' => ['/user/'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'User', 'icon' => ' fa fa-circle-o', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
                    ], ],
-                      [
-                        'visible' => !Yii::$app->user->isGuest,
-                        'label' => 'Master',
-                        'icon' => 'fa fa-share',
-                        'url' => '#',
-                        'items' => [
-                            ['label' => 'Pangkat', 'icon' => ' fa fa-circle-o', 'url' => ['/pangkat/index'], 'visible' => !Yii::$app->user->isGuest],
-                            ['label' => 'Alat Kelengkapan', 'icon' => ' fa fa-circle-o', 'url' => ['/alat-kelengkapan/index'], 'visible' => !Yii::$app->user->isGuest],
-                            ['label' => 'Kegiatan', 'icon' => ' fa fa-circle-o', 'url' => ['/kegiatan/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Kota', 'icon' => ' fa fa-circle-o', 'url' => ['/kota/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Tarif', 'icon' => ' fa fa-circle-o', 'url' => ['/tarif/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Personil', 'icon' => ' fa fa-circle-o', 'url' => ['/personil/index'], 'visible' => !Yii::$app->user->isGuest],
-                                        ], ],
-        [
-            'visible' => !Yii::$app->user->isGuest,
-            'label' => 'Perjalanan Dinas',
-            'icon' => 'fa fa-share',
-            'url' => '#',
-            'items' => [
-                ['label' => 'Mapping Alat Kelengkapan', 'icon' => ' fa fa-circle-o', 'url' => ['/alat-kelengkapan/index-mapping'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Surat Perintah Tugas', 'icon' => ' fa fa-circle-o', 'url' => ['/surat-perintah-tugas/index'], 'visible' => !Yii::$app->user->isGuest],
-                ['label' => 'Surat Perintah Perjalanan Dinas', 'icon' => ' fa fa-circle-o', 'url' => ['/surat-perintah-tugas/index-sppd'], 'visible' => !Yii::$app->user->isGuest],
-            ],
-        ],
+
             ];
 
  if (!Yii::$app->user->isGuest) {
@@ -53,7 +30,7 @@ $menuItems =
 
 <?php
 NavBar::begin([
-        'brandLabel' => '<img src="'.Url::to(['/Image/logo.png']).'" class="pull-left"   /> ',
+        'brandLabel' => 'E-SURAT',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-inverse navbar-fixed-left',
