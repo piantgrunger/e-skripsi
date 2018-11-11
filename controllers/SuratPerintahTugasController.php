@@ -95,6 +95,7 @@ class SuratPerintahTugasController extends Controller
 
                 $model1->id_d_spt = $model->id_d_spt;
                 $model1->id_spt = $model->id_spt;
+                $model1->realisasi =0;
 
                 array_push($list, $model1);
             }
@@ -111,8 +112,7 @@ class SuratPerintahTugasController extends Controller
                 if ($model->save()) {
                     $transaction->commit();
 
-                    echo '1';
-                    //  return $this->redirect(['index']);
+                    return $this->redirect(['realisasi',   'id' => $model->id_spt]);
                 }
             } catch (\yii\db\IntegrityException $e) {
                 $transaction->rollBack();
@@ -121,8 +121,6 @@ class SuratPerintahTugasController extends Controller
                 $transaction->rollBack();
                 throw $ecx;
             }
-
-            echo  '0';
         } else {
             return $this->renderAjax('biaya', [
             'model' => $model,
@@ -132,6 +130,29 @@ class SuratPerintahTugasController extends Controller
 
     public function actionRealisasi($id)
     {
+        $header =$this->findModel($id);
+        foreach ($header->detailSuratPerintahTugas as $model) {
+            if (count($model->subDetPerintahTugas) === 0) {
+                $dataBiaya = Tarif::find()->where(['id_pangkat' => $model->id_pangkat, 'tujuan' => $model->suratPerintahTugas->zona])->all();
+                $list = [];
+                foreach ($dataBiaya as $data) {
+                    $model1 = new SubSuratPerintahTugas();
+                    $model1->nama_biaya = $data->nama_biaya;
+                    $model1->anggaran = $data->biaya;
+
+                    $model1->id_d_spt = $model->id_d_spt;
+                    $model1->id_spt = $model->id_spt;
+                    $model1->realisasi =0;
+
+                    array_push($list, $model1);
+                }
+                if (count($list) > 0) {
+                    $model->subDetPerintahTugas = $list;
+                }
+                $model->save(false);
+            }
+        }
+
         return $this->render('realisasi', [
             'model' => $this->findModel($id),
         ]);
@@ -395,9 +416,14 @@ class SuratPerintahTugasController extends Controller
                 'model' => $model,
             ]);
         } else {
-            return $this->render('update', [
+            if ($model->id_kegiatan === null) {
+                return $this->render('update', [
                 'model' => $model,
             ]);
+            } else {
+                Yii::$app->session->setFlash('error', 'Data Tidak Dapat Dikoreksi Karena Sudah Dibuat SPPD ');
+                return $this->redirect(['index']);
+            }
         }
     }
 
@@ -412,7 +438,7 @@ class SuratPerintahTugasController extends Controller
                 if ($model->save()) {
                     $transaction->commit();
 
-                    return $this->redirect(['index']);
+                    return $this->redirect(['index-sppd']);
                 }
             } catch (\yii\db\IntegrityException $e) {
                 $transaction->rollBack();
@@ -443,7 +469,12 @@ class SuratPerintahTugasController extends Controller
     public function actionDelete($id)
     {
         try {
-            $this->findModel($id)->delete();
+            $model = $this->findModel($id);
+            if ($model->id_kegiatan === null) {
+                $model->delete();
+            } else {
+                Yii::$app->session->setFlash('error', 'Data Tidak Dapat Dihapus Karena Sudah Dibuat SPPD ');
+            }
         } catch (\yii\db\IntegrityException  $e) {
             Yii::$app->session->setFlash('error', 'Data Tidak Dapat Dihapus Karena Dipakai Modul Lain');
         }

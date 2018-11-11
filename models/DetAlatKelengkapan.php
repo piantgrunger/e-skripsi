@@ -74,6 +74,8 @@ class DetAlatKelengkapan extends \yii\db\ActiveRecord
     {
         return is_null($this->personil) ? "" : $this->personil->status_personil;
     }
+
+
     public function getNama_personil()
     {
         return is_null($this->personil) ? "" : $this->personil->nama_personil;

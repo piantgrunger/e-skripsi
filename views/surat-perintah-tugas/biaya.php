@@ -4,32 +4,6 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
 
-$js = <<< JS
-
-$('#form-biaya').on('beforeSubmit', function(e) {
-var form = $(this);
-var formData = form.serialize();
-$.ajax({
-    url: form.attr("action"),
-    type: form.attr("method"),
-    data: formData,
-    success: function (data) {
-        
-        alert('Test');
-    },
-    error: function () {
-        alert("Something went wrong");
-    }
-    return false; // prevent default submit
-
-});
-}).on('submit', function(e){
-    console.log('masuk');
-  e.preventDefault();
-  console.log('gagal');
-});
-JS;
-$this->registerJS($js);
 ?>
 <div>
 <?php Pjax::begin(); ?>
@@ -48,13 +22,13 @@ $form = ActiveForm::begin([
     <table id="table-detail" class="table table-condensed table-bordered table-hover table-stripped">
     <thead>
         <tr class="active">
-           
+
            <th>Biaya</th>
            <th>Anggaran</th>
            <th>Durasi</th>
            <th>Total</th>
            <th>Realisasi</th>
-          
+
 
 
         </tr>
@@ -73,7 +47,7 @@ $form = ActiveForm::begin([
     ?>
 
     </thead>
-    
+
 
     </table>
     <div class="form-group">
@@ -86,6 +60,6 @@ $form = ActiveForm::begin([
 
 
     <?php ActiveForm::end(); ?>
- </div>   
+ </div>
  </div>
  <?php Pjax::end(); ?>

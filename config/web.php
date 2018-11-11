@@ -103,7 +103,7 @@ $config = [
         'formatter' => [
             'dateFormat' => 'dd MMM yyyy',
             'decimalSeparator' => ',',
-            'thousandSeparator' => ' ',
+            'thousandSeparator' => '.',
             'currencyCode' => 'Rp',
        ],
 

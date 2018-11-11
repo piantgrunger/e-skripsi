@@ -19,7 +19,7 @@ $gridColumns = [['class' => 'kartik\grid\SerialColumn'],
              'penanda_tangan',
 
          ['class' => 'kartik\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
-              'update', 'delete', 'view', ], $this->context->route).'{print1}  {print2} {print3}',
+              'update', 'delete', 'view', ], $this->context->route).'  {print1}  {print2} {print3} ',
               'buttons' => [
                 'print1' => function ($url, $model) {
                     if (Mimin::checkRoute($this->context->id.'/print1')) {

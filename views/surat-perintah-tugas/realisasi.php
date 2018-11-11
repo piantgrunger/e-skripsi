@@ -1,11 +1,28 @@
 <?php
 
+
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\SuratPerintahTugas */
 
+$js= <<<JS
+  $("#modalContent").on("show.bs.modal",function(event){
+                var button = $(event.relatedTarget);
+                var href = button.attr("href");
+                $.pjax.reload("#pjax-modal" ,{
+                    "timeout" : false,
+                    "url" :href,
+                    "replace" :false
+                });
+
+
+  })
+
+JS;
+$this->registerJS($js);
 $this->title = Yii::t('app', 'Buat {modelClass}: ', [
     'modelClass' => 'Realisasi SPPD',
 ]).$model->no_spt;
@@ -18,11 +35,19 @@ $formatter = \Yii::$app->formatter;
 <?php
         Modal::begin([
                 'header' => '<h4>Data Realisasi Biaya</h4>',
-                'id' => 'modal',
+                'id' => 'modalContent',
                 'size' => 'modal-lg',
                 'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
             ]);
-        echo "<div id='modalContent'></div>";
+         Pjax::begin([
+                'id' => 'pjax-modal',
+                'timeout' => false,
+                'enablePushState' => false,
+                'enableReplaceState' => false,
+
+         ]);
+
+       Pjax::end();
         Modal::end();
     ?>
 
@@ -36,6 +61,8 @@ $formatter = \Yii::$app->formatter;
     <h4>Tujuan : <?= $model->tujuan; ?></h4>
     <h4>Kendaraan : <?= $model->kendaraan; ?></h4>
     <h4>Kegiatan : <?= $model->nama_kegiatan; ?></h4>
+    <h4>Zona : <?= $model->zona; ?></h4>
+
     <h4>Kota : <?= $model->nama_kota; ?></h4>
     <div class="panel panel-info"   >
 <div class="panel-heading"> <strong> Data Personil</strong>
@@ -49,7 +76,9 @@ $formatter = \Yii::$app->formatter;
            <th>Pangkat</th>
            <th>Status</th>
            <th>Jabatan</th>
-          
+           <th>Anggaran</th>
+           <th>Realisasi</th>
+
 
 
         </tr>
@@ -67,7 +96,7 @@ $formatter = \Yii::$app->formatter;
     ]);
     ?>
     </thead>
-    
+
 
     </table>
 </div>
