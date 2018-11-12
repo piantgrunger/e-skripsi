@@ -33,5 +33,6 @@ class AppAsset extends AssetBundle
         //additional import of third party alert project
          'app\assets\SweetAlertAsset',
         'app\assets\MaterialPluginAsset',
+        'yiister\gentelella\assets\Asset',
     ];
 }

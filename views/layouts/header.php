@@ -1,60 +1,21 @@
-    <?php
-use yii\bootstrap\NavBar;
-use yii\bootstrap\Nav;
-use yii\helpers\Url;
-use hscstudio\mimin\components\Mimin;
+<div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
 
-$menuItems =
-        [
-                      [
-                        'visible' => !Yii::$app->user->isGuest,
-                        'label' => 'User / Group',
-                        'icon' => 'fa fa-share',
-                        'url' => '#',
-                        'items' => [
-                    ['label' => 'App. Route', 'icon' => 'fa fa-circle-o', 'url' => ['/mimin/route/'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Role', 'icon' => 'fa fa-circle-o', 'url' => ['/mimin/role/'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'User', 'icon' => ' fa fa-circle-o', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
-                   ], ],
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="/" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+                </div>
+                <div class="clearfix"></div>
 
-            ];
+                <!-- menu prile quick info -->
+                <div class="profile">
+                    <div class="profile_pic">
+                        <img src="http://placehold.it/128x128" alt="..." class="img-circle profile_img">
+                    </div>
+                    <div class="profile_info">
+                        <span>Welcome,</span>
+                        <h2>John Doe</h2>
+                    </div>
+                </div>
+                <!-- /menu prile quick info -->
 
- if (!Yii::$app->user->isGuest) {
-     if (Yii::$app->user->identity->username !== 'admin') {
-         $menuItems = Mimin::filterMenu($menuItems);
-     }
- }
-
-?>
-
-
-<?php
-NavBar::begin([
-        'brandLabel' => 'E-SURAT',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar navbar-inverse navbar-fixed-left',
-        ],
-        'innerContainerOptions' => [
-            'class' => 'container',
-        ],
-    ]);
-
-     echo Nav::widget([
-         'options' => ['class' => 'navbar-nav navbar-left'],
-         'items' => $menuItems,
-    ]);
-
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            [
-                'label' => Yii::$app->user->isGuest ? 'Login' : 'Logout',
-                'url' => [Yii::$app->user->isGuest ? 'site/login' : '/site/logout'],
-                'linkOptions' => ['data-method' => 'post'],
-            ],
-        ],
-    ]);
-
-    NavBar::end();
-    ?>
+                <br />

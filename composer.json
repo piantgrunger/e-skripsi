@@ -40,7 +40,8 @@
                 "mdmsoft/yii2-ar-behaviors": "~1.0",
                 "mdmsoft/yii2-widgets": "^1.2",
                 "ramosisw/yii2-material-dashboard": "dev-master",
-        "yiisoft/yii2-queue": "^2.0@dev"
+        "yiisoft/yii2-queue": "^2.0@dev",
+        "yiister/yii2-gentelella": "~1.0"
 
 
 
