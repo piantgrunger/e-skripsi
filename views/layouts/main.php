@@ -20,13 +20,32 @@ if (Yii::$app->controller->action->id === 'login') {
                      [
                         'visible' => !Yii::$app->user->isGuest,
                         'label' => 'Manajemen User / Group',
-                        'icon' => 'fa fa-user-o',
+                        'icon' => 'user-o',
                         'url' => '#',
                         'items' => [
-                    ['label' => 'App. Route', 'icon' => 'fa fa-user-o', 'url' => ['/mimin/route/'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Role', 'icon' => 'fa fa-users', 'url' => ['/mimin/role/'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'User', 'icon' => ' fa fa-user-o', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'App. Route', 'icon' => 'user-o', 'url' => ['/mimin/route/'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Role', 'icon' => 'users', 'url' => ['/mimin/role/'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'User', 'icon' => 'user-o', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
                    ], ],
+                                        [
+                        'visible' => !Yii::$app->user->isGuest,
+                        'label' => 'Master',
+                        'icon' => 'pencil',
+                        'url' => '#',
+                        'items' => [
+                    ['label' => 'Jenis Surat', 'icon' => 'envelope-o', 'url' => ['/jenis-surat/index/'], 'visible' => !Yii::$app->user->isGuest],
+                   ], ],
+                             [
+                        'visible' => !Yii::$app->user->isGuest,
+                        'label' => 'Surat Menyurat',
+                        'icon' => 'envelope',
+                        'url' => '#',
+                        'items' => [
+                    ['label' => 'Surat Masuk', 'icon' => 'envelope-open', 'url' => ['/surat-masuk/index/'], 'visible' => !Yii::$app->user->isGuest],
+                    ['label' => 'Surat Keluar', 'icon' => 'envelope-open-o', 'url' => ['/surat-keluar/index/'], 'visible' => !Yii::$app->user->isGuest],
+                   ]
+                   ],
+
                 ];
 
     if (!Yii::$app->user->isGuest) {
@@ -38,6 +57,8 @@ if (Yii::$app->controller->action->id === 'login') {
      * @var string
      * @var \yii\web\View $this
      */
+    $this->title = 'E-Surat';
+
 
     MaterialPluginAsset::register($this);
     $bundle = yiister\gentelella\assets\Asset::register($this); ?>
@@ -72,17 +93,6 @@ if (Yii::$app->controller->action->id === 'login') {
                 </div>
                 <div class="clearfix"></div>
 
-                <!-- menu prile quick info -->
-                <div class="profile">
-                    <div class="profile_pic">
-                        <img src="http://placehold.it/128x128" alt="..." class="img-circle profile_img">
-                    </div>
-                    <div class="profile_info">
-                        <span>Welcome,</span>
-                        <h2>John Doe</h2>
-                    </div>
-                </div>
-                <!-- /menu prile quick info -->
 
                 <br />
 
@@ -90,7 +100,6 @@ if (Yii::$app->controller->action->id === 'login') {
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
 
                     <div class="menu_section">
-                        <h3>General</h3>
                         <?=
                         \yiister\gentelella\widgets\Menu::widget(
                             [
@@ -105,7 +114,7 @@ if (Yii::$app->controller->action->id === 'login') {
 
                 <!-- /menu footer buttons -->
                 <div class="sidebar-footer hidden-small">
-                 
+
                 </div>
                 <!-- /menu footer buttons -->
             </div>
@@ -123,7 +132,7 @@ if (Yii::$app->controller->action->id === 'login') {
                     <ul class="nav navbar-nav navbar-right">
                         <li class="">
                             <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <img src="http://placehold.it/128x128" alt="">John Doe
+                                <?=Yii::$app->user->identity->username?>
                                 <span class=" fa fa-angle-down"></span>
                             </a>
                             <ul class="dropdown-menu dropdown-usermenu pull-right">

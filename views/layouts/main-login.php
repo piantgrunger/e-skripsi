@@ -1,10 +1,13 @@
 <?php
 use yii\helpers\Html;
+use app\assets\MaterialPluginAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-$this->title = 'SPPD Administrator';
+$this->title = 'E-Surat';
 dmstr\web\AdminLteAsset::register($this);
+MaterialPluginAsset::register($this);
+
 ?>
 <?php $this->beginPage(); ?>
 

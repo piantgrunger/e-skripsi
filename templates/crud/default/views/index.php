@@ -38,7 +38,7 @@ if (($tableSchema = $generator->getTableSchema()) === false) {
         if (++$count < 6) {
             if ((!in_array($column->name, $model::primaryKey()))
           &&
-          (!in_array($column->name, ['created_at','updated_at']))
+          (!in_array($column->name, ['created_at','updated_at','created_by','updated_by']))
           ) {
                 echo "            '" . $column->name . ($format === 'text' ? "" : ":" . $format) . "',\n";
             }
