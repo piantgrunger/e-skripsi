@@ -33,17 +33,12 @@
         "hscstudio/yii2-mimin": "~1.1.4",
         "kartik-v/yii2-widget-fileinput": "@dev",
         "kartik-v/yii2-datecontrol": "dev-master",
-          "yii2mod/yii2-google-maps-markers": "*",
-        "guzzlehttp/guzzle": "^6.3@dev",
-        "2amigos/yii2-google-maps-library": "*",
-        "league/csv": "^9.0@dev",
-                "mdmsoft/yii2-ar-behaviors": "~1.0",
-                "mdmsoft/yii2-widgets": "^1.2",
-                "ramosisw/yii2-material-dashboard": "dev-master",
-        "yiisoft/yii2-queue": "^2.0@dev",
-        "yiister/yii2-gentelella": "~1.0",
-        "2amigos/yii2-ckeditor-widget": "^1.0@dev"
-
+        "yii2mod/yii2-google-maps-markers": "*",
+        "mdmsoft/yii2-ar-behaviors": "~1.0",
+        "mdmsoft/yii2-widgets": "^1.2",
+        "ramosisw/yii2-material-dashboard": "dev-master",
+        "yiister/yii2-gentelella": "~1.0"
+      
 
 
     },
