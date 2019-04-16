@@ -142,7 +142,7 @@ $config = [
             'identityClass' => 'app\models\User',
             'class' => 'app\models\BaseUser',
             //'enableAutoLogin' => true,
-            'loginUrl' => 'http://ctrl.uinsby.ac.id',
+         
             'enableSession' => true,
             'authTimeout' => 60 * 30,
         ],
