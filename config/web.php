@@ -15,7 +15,7 @@ $config = [
      'allowActions' => [
         // add wildcard allowed action here!
        // 'lokasi/*',
-      // 'site/*',
+    // 'site/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
         'queue/*',
@@ -142,6 +142,11 @@ $config = [
             'identityClass' => 'app\models\User',
             'class' => 'app\models\BaseUser',
             //'enableAutoLogin' => true,
+           'identityCookie' => [
+          'name' => '_',
+          'domain' => '.uinsby.ac.id',
+          'path' => '/',
+           ],
          
             'enableSession' => true,
             'authTimeout' => 60 * 30,
