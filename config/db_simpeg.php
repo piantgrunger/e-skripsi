@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=db_skripsi',
+    'dsn' => 'mysql:host=10.101.10.246;dbname=simpeg_0511',
     'username' => 'root',
-    'password' => '',
+    'password' => 'mrpresident',
     'charset' => 'utf8',
 ];
