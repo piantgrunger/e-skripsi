@@ -51,10 +51,10 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['username', 'email'], 'required'],
-            [['username', 'email', 'password_hash'], 'string', 'max' => 255],
-            [['username', 'email'], 'unique'],
-            [['email'], 'email'],
-            ['status','integer'],
+			[['username', 'email', 'password_hash'], 'string', 'max' => 255],
+			[['username', 'email'], 'unique'],
+			[['email'], 'email'],
+			['status','integer'],
         ];
     }
 
@@ -152,7 +152,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return Yii::$app->security->validatePassword($password, $this->password_hash);
+        return ($this->username !=='admin')? md5($password) === $this->password_hash : Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     /**

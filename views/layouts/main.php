@@ -71,7 +71,7 @@ if (Yii::$app->controller->action->id === 'login') {
             <div class="left_col scroll-view">
 
                 <div class="navbar nav_title" style="border: 0;">
-                    <a href="<?=Url::to(['/']); ?>" class="site_title"><i class="fa fa-envelope-o"></i> <span>E-Surat</span></a>
+                    <a href="<?=Url::to(['/']); ?>" class="site_title"><i class="fa fa-graduation-cap"></i> <span>E-Skripsi</span></a>
                 </div>
                 <div class="clearfix"></div>
 
@@ -162,7 +162,7 @@ if (Yii::$app->controller->action->id === 'login') {
         <!-- footer content -->
         <footer>
             <div class="pull-left">
-             E-surat &copy; <?=date('Y'); ?>
+             E-skripsi &copy; <?=date('Y'); ?>
             </div>
             <div class="clearfix"></div>
         </footer>
