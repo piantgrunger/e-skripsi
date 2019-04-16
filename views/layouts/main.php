@@ -19,7 +19,7 @@ if (Yii::$app->controller->action->id === 'login') {
         [
                      [
                         'visible' => !Yii::$app->user->isGuest,
-                        'label' => 'Manajemen User / Group',
+                        'label' => 'User / Group',
                         'icon' => 'user-o',
                         'url' => '#',
                         'items' => [
@@ -27,25 +27,7 @@ if (Yii::$app->controller->action->id === 'login') {
                     ['label' => 'Role', 'icon' => 'users', 'url' => ['/mimin/role/'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'User', 'icon' => 'user-o', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
                    ], ],
-                                        [
-                        'visible' => !Yii::$app->user->isGuest,
-                        'label' => 'Master',
-                        'icon' => 'pencil',
-                        'url' => '#',
-                        'items' => [
-                    ['label' => 'Jenis Surat', 'icon' => 'envelope-o', 'url' => ['/jenis-surat/index/'], 'visible' => !Yii::$app->user->isGuest],
-                   ], ],
-                             [
-                        'visible' => !Yii::$app->user->isGuest,
-                        'label' => 'Surat Menyurat',
-                        'icon' => 'envelope',
-                        'url' => '#',
-                        'items' => [
-                    ['label' => 'Surat Masuk', 'icon' => 'envelope-open', 'url' => ['/surat-masuk/index/'], 'visible' => !Yii::$app->user->isGuest],
-                    ['label' => 'Surat Keluar', 'icon' => 'envelope-open-o', 'url' => ['/surat-keluar/index/'], 'visible' => !Yii::$app->user->isGuest],
-                   ]
-                   ],
-
+                                  
                 ];
 
     if (!Yii::$app->user->isGuest) {
@@ -57,7 +39,7 @@ if (Yii::$app->controller->action->id === 'login') {
      * @var string
      * @var \yii\web\View $this
      */
-    $this->title = 'E-Surat';
+    $this->title = 'E-Skripsi';
 
 
     MaterialPluginAsset::register($this);
