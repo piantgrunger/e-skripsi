@@ -5,18 +5,7 @@ use kartik\datecontrol\Module;
 $params = require __DIR__.'/params.php';
 
 $config = [
-    'container' => [
-        'definitions' => [
-            'yii\data\Pagination' => [
-                'defaultPageSize' => 20,
-            ],
 
-            'yii\widgets\LinkPager' => [
-                'firstPageLabel' => 'Pertama',
-                'lastPageLabel' => 'Terakhir',
-            ],
-        ],
-            ],
     'id' => 'Template',
     'name' => 'Application',
     // set target language to be Indonesia
@@ -98,7 +87,7 @@ $config = [
   // set source language to be English
   'sourceLanguage' => 'en-US',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log', 'queue'],
+    'bootstrap' => ['log'],
     'components' => [
         'formatter' => [
             'dateFormat' => 'dd MMM yyyy',
@@ -107,15 +96,7 @@ $config = [
             'currencyCode' => 'Rp',
        ],
 
-        'queue' => [
-            'class' => \yii\queue\db\Queue::class,
-            'db' => 'db', // DB connection component or its config
-            'tableName' => '{{%queue}}', // Table name
-            'channel' => 'default', // Queue channel key
-           'as log' => \yii\queue\LogBehavior::class,
-
-            'mutex' => \yii\mutex\MysqlMutex::class, // Mutex that used to sync queries
-        ],
+        
 
         'assetManager' => [
             'bundles' => [
@@ -159,7 +140,9 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
+            'class' => 'app\models\BaseUser',
             //'enableAutoLogin' => true,
+            'loginUrl' => 'http://ctrl.uinsby.ac.id',
             'enableSession' => true,
             'authTimeout' => 60 * 30,
         ],
@@ -212,13 +195,7 @@ $config = [
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
-    $config['bootstrap'][] = 'debug';
-    $config['modules']['debug'] = [
-        'class' => 'yii\debug\Module',
-            'panels' => [
-                'queue' => \yii\queue\debug\Panel::class,
-            ],
-    ];
+
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
