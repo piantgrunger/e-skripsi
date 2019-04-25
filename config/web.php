@@ -90,9 +90,7 @@ $config = [
     'bootstrap' => ['log'],
     'components' => [
 
-        'request' => [
-            'enableCsrfValidation' => false,
-        ],
+        
         'formatter' => [
             'dateFormat' => 'dd MMM yyyy',
             'decimalSeparator' => ',',
@@ -118,7 +116,10 @@ $config = [
     ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
+          
             'cookieValidationKey' => 'y2B_PhmMeo1G4hPY0dO7KfNled31dl6L',
+          //  'csrfParam' => '_csrf',
+            'enableCsrfValidation' => false,
         ],
         /*
         'view' => [
@@ -146,11 +147,7 @@ $config = [
             'identityClass' => 'app\models\User',
             'class' => 'app\models\BaseUser',
             //'enableAutoLogin' => true,
-           'identityCookie' => [
-          'name' => '_',
-          'domain' => '.uinsby.ac.id',
-          'path' => '/',
-           ],
+         
          
             'enableSession' => true,
             'authTimeout' => 60 * 30,
@@ -207,6 +204,7 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'debug';
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
+       'allowedIPs' => ['*']
     ];
 
     $config['bootstrap'][] = 'gii';

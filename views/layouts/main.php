@@ -42,7 +42,7 @@ if (Yii::$app->controller->action->id === 'login') {
     $this->title = 'E-Skripsi';
 
 
-    MaterialPluginAsset::register($this);
+ 
     $bundle = yiister\gentelella\assets\Asset::register($this); ?>
 <?php $this->beginPage(); ?>
 <!DOCTYPE html>

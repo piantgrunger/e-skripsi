@@ -27,6 +27,8 @@ class BaseUser extends ParentUser
         } else {
             $this ->loginUrl = 'http://ctrl.uinsby.ac.id';
             $cookies = $_COOKIE;
+            //print_r($cookies);
+           //die();
           
              $username =  (isset($_COOKIE['nip']))?$_COOKIE['nip'] :null;
              
