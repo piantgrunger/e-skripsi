@@ -4,9 +4,9 @@ use app\assets\MaterialPluginAsset;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
-$this->title = 'E-Surat';
+$this->title = 'E-Skripsi';
 dmstr\web\AdminLteAsset::register($this);
-MaterialPluginAsset::register($this);
+
 
 ?>
 <?php $this->beginPage(); ?>

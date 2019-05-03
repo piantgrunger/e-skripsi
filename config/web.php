@@ -16,6 +16,7 @@ $config = [
         // add wildcard allowed action here!
        // 'lokasi/*',
     // 'site/*',
+    'gii/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
         'queue/*',
@@ -190,6 +191,9 @@ $config = [
             ],
         ],
         'db' => require(__DIR__.'/db.php'),
+        'db_siakad' => require(__DIR__.'/db_siakad.php'),
+        'db_simpeg' => require(__DIR__.'/db_simpeg.php'),
+        
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -224,6 +228,7 @@ if (YII_ENV_DEV) {
             'templates' => [
                 'my' => '@app/Templates/model/default',
             ],
+            
         ],
     ],
     ];

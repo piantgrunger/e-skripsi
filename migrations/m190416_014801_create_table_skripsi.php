@@ -8,8 +8,10 @@ class m190416_014801_create_table_skripsi extends Migration
     {
         $this->createTable('skripsi',[
             'id' => $this->PrimaryKey(),
-            'nim' => $this->string()->notNull(),
+            'nim' => $this->string(50)->notNull(),
             'judul_skripsi' => $this->text()->notNull(),
+            'proposal' => $this->string(50),
+            'kartu_bimbingan' => $this->string(50) ,
             
 
         ]);
@@ -17,9 +19,11 @@ class m190416_014801_create_table_skripsi extends Migration
         $this->createTable('detailskripsipembimbing',[
             'id' => $this->primaryKey(),
             'id_skripsi' => $this->integer(),
-            'nip_dosen' => $this->string()->notnull(),
+            'nip_dosen' => $this->string(50)->notnull(),
+            'validasi_sempro' => $this->string(20)->notNull()->defaultValue("Belum Validasi"),
         ]);
         $this->addForeignKey('fk_skripsi_pembimbing','detailskripsipembimbing','id_skripsi','skripsi','id','CASCADE','CASCADE');
+        
 
     }
 

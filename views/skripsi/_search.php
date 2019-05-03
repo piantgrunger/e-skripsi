@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\JenisSuratSearch */
+/* @var $model app\models\SkripsiSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="jenis-surat-search">
+<div class="skripsi-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -20,15 +20,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'nama_jenis_surat') ?>
+    <?= $form->field($model, 'nim') ?>
 
-    <?= $form->field($model, 'created_at') ?>
+    <?= $form->field($model, 'judul_skripsi') ?>
 
-    <?= $form->field($model, 'updated_at') ?>
+    <?= $form->field($model, 'proposal') ?>
 
-    <?= $form->field($model, 'created_by') ?>
-
-    <?php // echo $form->field($model, 'updated_by') ?>
+    <?= $form->field($model, 'kartu_bimbingan') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

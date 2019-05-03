@@ -152,7 +152,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function validatePassword($password)
     {
-        return ($this->username !=='admin')? md5($password) === $this->password_hash : Yii::$app->security->validatePassword($password, $this->password_hash);
+        return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
 
     /**
@@ -188,4 +188,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $this->password_reset_token = null;
     }
+
+    
 }

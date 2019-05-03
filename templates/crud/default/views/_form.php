@@ -32,8 +32,9 @@ use yii\widgets\ActiveForm;
 <?php foreach ($generator->getColumnNames() as $attribute) {
     if ((in_array($attribute, $safeAttributes))
     &&
-     (!in_array($attribute, ['created_at','updated_at','created_by','updated_by']))) {
-        echo "    <?= " . $generator->generateActiveField($attribute) . " ?>\n\n";
+     (!in_array($attribute, ['created_at','updated_at'])))
+    {
+        echo "     " . $generator->generateActiveField($attribute) . " \n\n";
     }
 } ?>
     <div class="form-group">

@@ -5,13 +5,13 @@ use yii\widgets\DetailView;
 use hscstudio\mimin\components\Mimin;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\JenisSurat */
+/* @var $model app\models\Skripsi */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Jenis Surat'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Skripsi'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="jenis-surat-view">
+<div class="skripsi-view">
 
     <h3><?= Html::encode($this->title) ?></h3>
 
@@ -29,11 +29,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'nama_jenis_surat',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
+            'nim',
+            'judul_skripsi:ntext',
+            'proposal',
+            'kartu_bimbingan',
         ],
     ]) ?>
 
