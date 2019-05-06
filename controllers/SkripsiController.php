@@ -180,10 +180,13 @@ class SkripsiController extends Controller
     public function actionNimList($q = null, $id = null)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+         $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:"";
         $out = ['results' => ['id' => '', 'text' => '']];
         if (!is_null($q)) {
             $query="select nim as id,concat(nim,' - ',nama) as text from akademik.ms_mahasiswa
-            where lower(nim) like lower('%$q%') or lower(nama) like lower('%$q%') limit 20    ";
+            where (lower(nim) like lower('%$q%') or lower(nama) like lower('%$q%') )
+            and kodeunit = '$unit'
+            limit 20    ";
             $command = Yii::$app->db_siakad->createCommand($query);
             $data = $command->queryAll();
             $out['results'] = array_values($data);
@@ -196,9 +199,16 @@ class SkripsiController extends Controller
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $out = ['results' => ['id' => '', 'text' => '']];
+         $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:"";
+      
         if (!is_null($q)) {
             $query="select nip as id,concat(nip,' - ',nama) as text from kepegawaian.ms_pegawai
-            where lower(nip) like lower('%$q%') or lower(nama) like lower('%$q%') limit 20    ";
+            
+            where (lower(nip) like lower('%$q%') or lower(nama) like lower('%$q%')) 
+            
+      
+            
+            limit 20    ";
             $command = Yii::$app->db_siakad->createCommand($query);
             $data = $command->queryAll();
             $out['results'] = array_values($data);
