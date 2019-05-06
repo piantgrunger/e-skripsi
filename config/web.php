@@ -90,6 +90,14 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
+       'i18n' => [
+        'translations' => [
+            'kvgrid' => [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => '@vendor/kartik-v/yii2-grid/messages',
+            ],
+      ],
+         ],
 
         
         'formatter' => [

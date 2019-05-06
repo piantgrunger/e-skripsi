@@ -105,14 +105,13 @@ class SiteController extends Controller
     {
 
    $cookies = Yii::$app->response->cookies;
-    $cookies->remove('nip');
-      die();
-
+   
 
       Yii::$app->user->logout();
+      
 
     
-        return $this->goHome();
+        return $this->redirect('http://ctrl.uinsby.ac.id/index/portal');
     }
 
     /**
