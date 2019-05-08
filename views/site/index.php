@@ -11,8 +11,31 @@ use hscstudio\mimin\components\Mimin;
 /* @var $this yii\web\View */
 
 ?>
-    <div class="container-fluid start-screen no-scroll-y h-100">
+   <div class="row">
+   <div class="col-md-12">
+      <div class="x_panel">
+      <div class="x_title">
+      <h2>Dashboard</h2>
+      <div class="clearfix"></div>
+      </div>
+      <div class="x_content">
+      <div class="col-md-3 col-sm-3 col-xs-12 profile_left"></div> 
+      
+      
+      </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      </div>
+   
+   
+   </div>
+   
+   
+   </div>
 
-
-
-</div>
