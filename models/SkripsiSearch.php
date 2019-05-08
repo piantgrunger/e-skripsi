@@ -66,6 +66,8 @@ class SkripsiSearch extends Skripsi
             ->andFilterWhere(['like', 'judul_skripsi', $this->judul_skripsi])
             ->andFilterWhere(['like', 'proposal', $this->proposal])
             ->andFilterWhere(['like', 'kartu_bimbingan', $this->kartu_bimbingan]);
+        $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
+            $query->andWhere(['kode_unit' => $unit]);
 
         return $dataProvider;
     }

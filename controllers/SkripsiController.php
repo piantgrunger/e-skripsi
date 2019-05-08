@@ -62,22 +62,14 @@ class SkripsiController extends Controller
         $nim= Yii::$app->user->identity->username;
       //  die($nim);
         $model = Skripsi::find()->where(['nim'=>$nim])->one();
-        if($model===null){
-            
-          throw new NotFoundHttpException('Anda Belum Memiliki Data Skripsi Hubungi Kaprodi');
-          
-        } 
+        if ($model===null) {
+            throw new NotFoundHttpException('Anda Belum Memiliki Data Skripsi Hubungi Kaprodi');
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-
-        } 
+        }
         return $this->render('upload', [
             'model'=>$model,
             ]);
-        
-
-
-
     }
 
     /**
@@ -93,6 +85,8 @@ class SkripsiController extends Controller
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 $model->detailskripsipembimbings =  Yii::$app->request->post('Detailskripsipembimbing', []);
+                $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
+                $model->kode_unit = $unit;
                 if ($model->save() && (count($model->detailskripsipembimbings) > 0)) {
                     $transaction->commit();
                     return $this->redirect(['index']);
@@ -180,7 +174,7 @@ class SkripsiController extends Controller
     public function actionNimList($q = null, $id = null)
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-         $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:"";
+         $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
         $out = ['results' => ['id' => '', 'text' => '']];
         if (!is_null($q)) {
             $query="select nim as id,concat(nim,' - ',nama) as text from akademik.ms_mahasiswa
@@ -199,7 +193,7 @@ class SkripsiController extends Controller
     {
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $out = ['results' => ['id' => '', 'text' => '']];
-         $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:"";
+         $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
       
         if (!is_null($q)) {
             $query="select nip as id,concat(nip,' - ',nama) as text from kepegawaian.ms_pegawai
