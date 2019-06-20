@@ -4,6 +4,7 @@ use hscstudio\mimin\components\Mimin;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use app\assets\MaterialPluginAsset;
+use dmstr\widgets\Alert;
 
 if (Yii::$app->controller->action->id === 'login') {
     /**
@@ -27,10 +28,24 @@ if (Yii::$app->controller->action->id === 'login') {
                     ['label' => 'Role', 'icon' => 'users', 'url' => ['/mimin/role/'], 'visible' => !Yii::$app->user->isGuest],
                     ['label' => 'User', 'icon' => 'user-o', 'url' => ['/mimin/user/'], 'visible' => !Yii::$app->user->isGuest],
                    ], ],
+                  [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Dashboard',
+                   'icon' => 'dashboard',
+                   'url' => ['/site/index']],
                    [  'visible' => !Yii::$app->user->isGuest,
                    'label' => 'Skripsi',
                    'icon' => 'book',
                    'url' => ['/skripsi/index']],
+                  [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Ruang',
+                   'icon' => 'building',
+                   'url' => ['/ruang/index']
+                  ],
+                [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Sidang',
+                   'icon' => 'gavel',
+                   'url' => ['/sidang/index']
+                  ],
 
                                   
                 ];
@@ -45,6 +60,8 @@ if (Yii::$app->controller->action->id === 'login') {
      * @var \yii\web\View $this
      */
     $this->title = 'E-Skripsi';
+  $path =Url::to(['/'], true);
+$this->registerLinkTag(['rel' => 'icon', 'type' => 'image/ico', 'href' => $path.'uin.png']);
   
 
     $bundle = yiister\gentelella\assets\Asset::register($this); ?>
@@ -169,6 +186,7 @@ if (Yii::$app->controller->action->id === 'login') {
                 </div>
             <?php endif; ?>
             <div class="clearfix"></div>
+            <?= Alert::widget() ?>
 
             <?= $content; ?>
         </div>

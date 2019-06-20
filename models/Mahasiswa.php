@@ -379,4 +379,43 @@ class Mahasiswa extends \yii\db\ActiveRecord
    {
        return is_null($this->prodi)?"":$this->prodi->nama_program_studi;
    }
+   public function getSkripsi()
+   {
+       return $this->hasOne(Skripsi::className(),['nim' =>'nim']);
+   }
+  
+   public function getJudul_skripsi()
+   {
+       return is_null($this->skripsi)?"":$this->skripsi->judul_skripsi;
+   }
+     public function getProposal()
+   {
+       return is_null($this->skripsi)?"":$this->skripsi->proposal;
+   }
+ public function getLaporan()
+   {
+       return is_null($this->skripsi)?"":$this->skripsi->laporan;
+   }
+
+   public function getKartu_bimbingan()
+   {
+       return is_null($this->skripsi)?"":$this->skripsi->kartu_bimbingan;
+   }
+   public function getTanggal_sidang()
+   {
+       return is_null($this->skripsi)?"":$this->skripsi->tanggal_sidang;
+   }
+     public function getJam_sidang()
+   {
+       return is_null($this->skripsi)?"":$this->skripsi->jam_sidang;
+   }
+
+     public function getRuang()
+   {
+       if (!is_null($this->skripsi)){
+       return is_null($this->skripsi->ruang)?"":$this->skripsi->ruang->nama;
+       }  
+   }
+
 }
+

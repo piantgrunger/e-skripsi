@@ -2,6 +2,7 @@
 namespace app\models;
 use Yii;
 use yii\web\User as ParentUser;
+
 use yii\helpers\Url;
 
 class BaseUser extends ParentUser
@@ -49,12 +50,21 @@ class BaseUser extends ParentUser
             
 
                 }
+               $role = AuthAssignment::find()->where(['user_id'=>$user->id])->one();
+               if(!is_null($role))
+               {
+                  $role->delete();   
+               }  
+               if (!is_null($user->jenisUser))
+               {
+                 $role = new AuthAssignment;
+                 $role->item_name = $user->jenisUser;
+                 $role->user_id = $user->id;
+                 $role->save(false);
+               } 
+                        Yii::$app->user->login($user);
+       
               
-                    
-                  
-                  
-               Yii::$app->user->login($user);
-        
      
 
 

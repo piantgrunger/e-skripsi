@@ -191,8 +191,8 @@ public function removePasswordResetToken()
 
 public function getJenisUser()
 {
-    $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
-    if ($unit !== '') {
+    $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'zonk';
+    if ($unit !== 'zonk') {
         return 'Kaprodi';
     } elseif (!is_null(Mahasiswa::findOne($this->username))) {
         return 'Mahasiswa' ;
@@ -212,3 +212,5 @@ public function getModel()
          return Karyawan::find()->where(['nip' => $this->username])->one();
     }
 }
+  
+} 

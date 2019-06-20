@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             <div class="x_content">
 
                 <?=
-                $this->render('_form_upload', [
+                $this->render('_form_laporan', [
                     'model' => $model,
                 ]);
                 ?>

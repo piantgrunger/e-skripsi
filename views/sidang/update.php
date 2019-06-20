@@ -5,7 +5,9 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Skripsi */
 
-$this->title = $model->judul_skripsi;
+$this->title = Yii::t('app', 'Update {modelClass}: ', [
+    'modelClass' => 'Skripsi',
+]) . $model->nama_mahasiswa;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Daftar Skripsi'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
@@ -21,7 +23,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
             <div class="x_content">
 
                 <?=
-                $this->render('_form_upload', [
+                $this->render('_form', [
                     'model' => $model,
                 ]);
                 ?>

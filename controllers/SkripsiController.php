@@ -5,10 +5,12 @@ namespace app\controllers;
 use Yii;
 use app\models\Mahasiswa;
 use app\models\Skripsi;
+use app\models\Detailskripsipembimbing;
 use app\models\SkripsiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+
 
 /**
  * SkripsiController implements the CRUD actions for Skripsi model.
@@ -65,9 +67,52 @@ class SkripsiController extends Controller
         if ($model===null) {
             throw new NotFoundHttpException('Anda Belum Memiliki Data Skripsi Hubungi Kaprodi');
         }
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->upload('proposal') && $model->save()) {
+          return $this->redirect(["site/index"]);
         }
-        return $this->render('upload', [
+        return $this->renderAjax('upload', [
+            'model'=>$model,
+            ]);
+    }
+    public function actionValidasi($id)
+    {
+        
+      //  die($nim);
+        $model = Detailskripsipembimbing::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())   && $model->save()) {
+          return $this->redirect(["site/index"]);
+        }
+        return $this->renderAjax('validasi', [
+            'model'=>$model,
+            ]);
+    }
+      public function actionNilai($id)
+    {
+        
+      //  die($nim);
+        $model = Detailskripsipembimbing::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())   && $model->save()) {
+          return $this->redirect(["site/index"]);
+        }
+        return $this->renderAjax('nilai', [
+            'model'=>$model,
+            ]);
+    }
+
+  public function actionUploadLaporan()
+    {
+        $nim= Yii::$app->user->identity->username;
+      //  die($nim);
+        $model = Skripsi::find()->where(['nim'=>$nim])->one();
+        if ($model===null) {
+            throw new NotFoundHttpException('Anda Belum Memiliki Data Skripsi Hubungi Kaprodi');
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->upload('kartu_bimbingan') && $model->upload('laporan') && $model->save()) {
+          return $this->redirect(["site/index"]);
+        }
+        return $this->renderAjax('upload-laporan', [
             'model'=>$model,
             ]);
     }
@@ -182,6 +227,25 @@ class SkripsiController extends Controller
             and kodeunit = '$unit'
             limit 20    ";
             $command = Yii::$app->db_siakad->createCommand($query);
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        } elseif ($id > 0) {
+            $out['results'] = ['id' => $id, 'text' => $id . ' - ' . Mahasiswa::find($id)->nama];
+        }
+        return $out;
+    }
+  
+    public function actionSkripsiList($q = null, $id = null)
+    {
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+         $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
+        $out = ['results' => ['id' => '', 'text' => '']];
+        if (!is_null($q)) {
+            $query="select  id,concat(nim,' - ',judul_skripsi) as text from skripsi
+            where (lower(nim) like lower('%$q%') or lower(judul_skripsi) like lower('%$q%') )
+            and kode_unit = '$unit'
+            limit 20    ";
+            $command = Yii::$app->db->createCommand($query);
             $data = $command->queryAll();
             $out['results'] = array_values($data);
         } elseif ($id > 0) {

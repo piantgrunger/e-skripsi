@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Skripsi;
+use app\models\Ruang;
 
 /**
- * SkripsiSearch represents the model behind the search form of `app\models\Skripsi`.
+ * RuangSearch represents the model behind the search form of `app\models\Ruang`.
  */
-class SkripsiSearch extends Skripsi
+class RuangSearch extends Ruang
 {
     /**
      * @inheritdoc
@@ -19,7 +19,7 @@ class SkripsiSearch extends Skripsi
     {
         return [
             [['id'], 'integer'],
-            [['nim', 'judul_skripsi', 'proposal', 'kartu_bimbingan'], 'safe'],
+            [['nama', 'tempat'], 'safe'],
         ];
     }
 
@@ -39,9 +39,9 @@ class SkripsiSearch extends Skripsi
      *
      * @return ActiveDataProvider
      */
-    public function search($params,$sidang =0)
+    public function search($params)
     {
-        $query = Skripsi::find();
+        $query = Ruang::find();
 
         // add conditions that should always apply here
 
@@ -61,17 +61,9 @@ class SkripsiSearch extends Skripsi
         $query->andFilterWhere([
             'id' => $this->id,
         ]);
-      
-       if ($sidang==1) {
-         $query->andWhere(" tanggal_sidang is not null ");
-       }
 
-        $query->andFilterWhere(['like', 'nim', $this->nim])
-            ->andFilterWhere(['like', 'judul_skripsi', $this->judul_skripsi])
-            ->andFilterWhere(['like', 'proposal', $this->proposal])
-            ->andFilterWhere(['like', 'kartu_bimbingan', $this->kartu_bimbingan]);
-        $unit = isset($_COOKIE['kodeunit'])?$_COOKIE['kodeunit']:'';
-            $query->andWhere(['kode_unit' => $unit]);
+        $query->andFilterWhere(['like', 'nama', $this->nama])
+            ->andFilterWhere(['like', 'tempat', $this->tempat]);
 
         return $dataProvider;
     }

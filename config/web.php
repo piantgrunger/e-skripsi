@@ -9,13 +9,15 @@ $config = [
     'id' => 'Template',
     'name' => 'Application',
     // set target language to be Indonesia
-  'language' => 'id-ID',
+    'language' => 'id-ID',
+  
+
     'as access' => [
      'class' => '\hscstudio\mimin\components\AccessControl',
      'allowActions' => [
         // add wildcard allowed action here!
        // 'lokasi/*',
-    // 'site/*',
+     'site/logout',
     'gii/*',
         'debug/*',
         'mimin/*', // only in dev modewuw
@@ -24,6 +26,9 @@ $config = [
 ],
 
    'modules' => [
+       // set source language to be English
+
+
         'datecontrol' => [
         'class' => 'kartik\datecontrol\Module',
 
@@ -221,6 +226,7 @@ if (YII_ENV_DEV) {
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
+       'allowedIPs' => ['*'],
         'class' => 'yii\gii\Module',
         'generators' => [
         'myCrud' => [

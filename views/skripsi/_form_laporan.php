@@ -17,17 +17,25 @@ use kartik\date\DatePicker;// The controller action that will render the list
     <?= $form->errorSummary($model) ?>
       <!-- ADDED HERE -->
       <div class="row">
-        <label class="control-label col-md-3">Proposal</label>
+        <label class="control-label col-md-3">Laporan</label>
         <div class="col-md-9">
-          <?= $form->field($model, 'proposal')->fileInput()->label(false) ?>
+          <?= $form->field($model, 'laporan')->fileInput()->label(false) ?>
 
 
         </div>
       </div>
 
-    
+      <div class="row">
+        <label class="control-label col-md-3">Kartu Bimbingan </label>
+        <div class="col-md-9">
+          <?= $form->field($model, 'kartu_bimbingan')->fileInput()->label(false) ?>
 
-           <div class="form-group ">
+
+        </div>
+      </div>
+
+
+      <div class="form-group ">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
       </div>
 
