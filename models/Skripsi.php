@@ -128,7 +128,10 @@ class Skripsi extends \yii\db\ActiveRecord
       
     }  
 
-    public function getNama_mahasiswa(){
+    public function getRuang_sidang(){
+        return is_null($this->ruang)?"":$this->ruang->nama;
+    } 
+  public function getNama_mahasiswa(){
         return is_null($this->mahasiswa)?"":$this->mahasiswa->nama;
     } 
     public function getNama_prodi(){

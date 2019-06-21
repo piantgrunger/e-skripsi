@@ -22,6 +22,7 @@ $Desc = empty($model->nim) ? '' : $model->nim." - ".Mahasiswa::find()->where(['n
 <div class="skripsi-form">
 
     <?php $form = ActiveForm::begin(); ?>
+  <?php if(strtolower( \yii::$app->user->identity->jenisUser) !== "mahasiswa") {  ?>
         <?= $form->errorSummary($model) ?> <!-- ADDED HERE -->
         <div class="row">
         <label class="control-label col-md-3">Mahasiswa</label>
@@ -48,6 +49,12 @@ $Desc = empty($model->nim) ? '' : $model->nim." - ".Mahasiswa::find()->where(['n
 ])->label(false); ?>
 </div>
 </div>
+  <?php }
+  else {
+    echo Html::activeHiddenInput($model, 'nim', ['value' => \yii::$app->user->identity->username]);
+  }
+  
+  ?>
 
 <div class="row">
 <label class="control-label col-md-3">Judul Skripsi</label>

@@ -6,6 +6,7 @@ use Yii;
 use app\models\Mahasiswa;
 use app\models\Skripsi;
 use app\models\Detailskripsipembimbing;
+use app\models\Detailskripsipenguji;
 use app\models\SkripsiSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -81,7 +82,7 @@ class SkripsiController extends Controller
         $model = Detailskripsipembimbing::findOne($id);
 
         if ($model->load(Yii::$app->request->post())   && $model->save()) {
-          return $this->redirect(["site/index"]);
+          return $this->redirect(["detailskripsipembimbing/index"]);
         }
         return $this->renderAjax('validasi', [
             'model'=>$model,
@@ -94,7 +95,20 @@ class SkripsiController extends Controller
         $model = Detailskripsipembimbing::findOne($id);
 
         if ($model->load(Yii::$app->request->post())   && $model->save()) {
-          return $this->redirect(["site/index"]);
+          return $this->redirect(["detailskripsipembimbing/index"]);
+        }
+        return $this->renderAjax('nilai', [
+            'model'=>$model,
+            ]);
+    }
+  public function actionNilaiPenguji($id)
+    {
+        
+      //  die($nim);
+        $model = Detailskripsipenguji::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())   && $model->save()) {
+          return $this->redirect(["detailskripsipenguji/index"]);
         }
         return $this->renderAjax('nilai', [
             'model'=>$model,
@@ -141,9 +155,39 @@ class SkripsiController extends Controller
                 throw $ecx;
             }
             if (count($model->detailskripsipembimbings) == 0) {
-                $model->addError('Pembimbing', 'Data Skripsi Harus Memiliki Dosen Pembimbing');
+                $model->addError('Pembimbing', 'Data Skripsi Silahkan Masukkan Data Skripsi Terlebih Dahulu');
             }
 
+
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('create', [
+               'model' => $model,
+            ]);
+        }
+    }
+  
+      public function actionDaftar()
+    {
+        $model = new Skripsi();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                $model->detailskripsipembimbings =  Yii::$app->request->post('Detailskripsipembimbing', []);
+                $unit = yii::$app->user->identity->model->kodeunit;
+                $model->kode_unit = $unit;
+                if ($model->save() ) {
+                    $transaction->commit();
+                    return $this->redirect(['site/index']);
+                }
+            } catch (\Exception $ecx) {
+                $transaction->rollBack();
+                throw $ecx;
+            }
+     
 
             return $this->render('create', [
                 'model' => $model,
@@ -178,7 +222,7 @@ class SkripsiController extends Controller
                 throw $ecx;
             }
             if (count($model->detailskripsipembimbings) == 0) {
-                $model->addError('Pembimbing', 'Data Skripsi Harus Memiliki Dosen Pembimbing');
+                $model->addError('Pembimbing', 'Data Skripsi Silahkan Masukkan Data Skripsi Terlebih Dahulu');
             }
 
 

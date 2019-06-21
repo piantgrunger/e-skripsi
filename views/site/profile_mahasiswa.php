@@ -70,6 +70,10 @@ $this->registerJs($js);
       <div class="col-md-6 col-sm-6 col-xs-12">
 
         <blockquote>
+          <?php
+               $skripsi = yii::$app->user->identity->model->skripsi;
+                                  if(!is_null($skripsi)) {
+            ?>                 
           <h2>Judul Skripsi</h2>
           <p>"
             <?=yii::$app->user->identity->model->judul_skripsi;?> "</p>
@@ -86,7 +90,25 @@ $this->registerJs($js);
                           ?>
             </ul>
           </footer>
+          <?php  
+                                  }
+          else {
+                                    
+          ?>
+          
+                     <a href="<?=Url::to(['skripsi/daftar'])?>" class="btn btn-success pull-center btn-round btn-lg"   
+                        title ='Daftar Skripsi'> Daftar Skripsi </a>
+          
+          
+        
+          
+          <?php
+            
+          }
+            ?>
         </blockquote>
+        
+        
       </div>
     </div>
   </div>

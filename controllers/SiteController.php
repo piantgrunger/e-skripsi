@@ -70,9 +70,15 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+      $jenisUser =  strtolower(\yii::$app->user->identity->jenisUser);
 
         
-        return $this->render('index');
+        if (($jenisUser != 'dosen' ) &&  ($jenisUser != 'kaprodi' ))
+        {        
+             return $this->render('index');
+        } else {
+             return $this->redirect(['detailskripsipembimbing/index']);
+        }
     }
 
     /**

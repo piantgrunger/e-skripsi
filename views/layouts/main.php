@@ -46,6 +46,16 @@ if (Yii::$app->controller->action->id === 'login') {
                    'icon' => 'gavel',
                    'url' => ['/sidang/index']
                   ],
+       [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Mahasiswa Bimbingan',
+                   'icon' => 'book',
+                   'url' => ['/detailskripsipembimbing/index']
+                  ],
+     [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Penguji Mahasiswa Sidang',
+                   'icon' => 'book',
+                   'url' => ['/detailskripsipenguji/index']
+                  ],
 
                                   
                 ];

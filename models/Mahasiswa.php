@@ -379,6 +379,10 @@ class Mahasiswa extends \yii\db\ActiveRecord
    {
        return is_null($this->prodi)?"":$this->prodi->nama_program_studi;
    }
+     public function getKode_prodi()
+   {
+       return is_null($this->prodi)?"":$this->prodi->kode_program_studi;
+   }
    public function getSkripsi()
    {
        return $this->hasOne(Skripsi::className(),['nim' =>'nim']);

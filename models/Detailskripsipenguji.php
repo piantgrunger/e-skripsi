@@ -31,10 +31,18 @@ class Detailskripsipenguji extends \yii\db\ActiveRecord
         return [
             [['id_skripsi'], 'integer'],
             [['nip_dosen'], 'required'],
-            [['nip_dosen','nilai','revisi','nilai_akhir'], 'string', 'max' => 50],
+          [['nilai','revisi','nilai_akhir'],'safe'],
+            [['nip_dosen'], 'string', 'max' => 50],
             [['id_skripsi'], 'exist', 'skipOnError' => true, 'targetClass' => Skripsi::className(), 'targetAttribute' => ['id_skripsi' => 'id']],
         ];
     }
+  
+    public function getNilaiHuruf(){
+    
+    $data = ['4'=>'A','3.5'=>'AB','3' =>'B','2.5' => 'BC'  ,'2' => 'C' ,'1'=>'D' ,'0'=>'E'  ,null =>'' ];
+      return $data[(string)$this->nilai];
+  }
+
 
     /**
      * @inheritdoc
