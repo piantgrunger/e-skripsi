@@ -51,19 +51,35 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
                  
                 "value"=>'skripsi.tanggal_sidang'],
                'skripsi.jam_sidang', 
-                 ["attribute" => 'nilai',
-                  "value" =>'nilaiHuruf'
+          
+            
+    
+                ["attribute" => 'Nilai Metode Penelitian',
+                  "value" =>'nilai_akhir'
                   
                   ],
-            
-             'revisi:ntext',
-             'nilai_akhir',
+                    ["attribute" => 'Nilai Bahasa dan Teknik Penulisan',
+                  "value" =>'nilai_akhir2'
+                  
+                  ],
+                    ["attribute" => 'Nilai Materi Skripsi',
+                  "value" =>'nilai_akhir3'
+                  
+                  ],
+                    ["attribute" => 'Nilai Penguasaan Materi',
+                  "value" =>'nilai_akhir4'
+                  
+                  ],
               [
                 'attribute' =>'aksi',
                 'format' =>'raw',
                 'value' => function($data) {
                 return 
-                               "<a  href=\"".Url::to(['skripsi/nilai-penguji','id'=>$data->id])."\" class=\"btn btn-success pull-right btn-round btn-sm \"   data-toggle = 'modal', data-target = '#modal'> Penilaian </a>";
+                               "<a  href=\"".Url::to(['skripsi/nilai-penguji','id'=>$data->id])."\" class=\"btn btn-success pull-right btn-round btn-sm \"   data-toggle = 'modal', data-target = '#modal'> Penilaian Sidang</a>
+                                                            
+                               <br>
+                               <a  href=\"".Url::to(['skripsi/finalisasi','id'=>$data->id])."\" class=\"btn btn-info pull-right btn-round btn-sm \"   data-toggle = 'modal', data-target = '#modal'> Finalisasi Sidang</a>
+                               ";
                   
                 }
               ]

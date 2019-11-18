@@ -26,7 +26,7 @@ class DetailskripsipembimbingSearch extends Detailskripsipembimbing
             [['id', 'id_skripsi'], 'integer'],
 
            
-            [['nim' ,'tanggal_sidang'], 'safe'],
+            [['nim' ,'tanggal_sidang','validasi_sidang'], 'safe'],
          
         ];
     }

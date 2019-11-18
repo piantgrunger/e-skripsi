@@ -374,6 +374,14 @@ class Mahasiswa extends \yii\db\ActiveRecord
    {
        return $this->hasOne(Prodi::className(),['kodeunit' =>'kodeunit']);
    }
+   public function getKrs()
+   {
+       return $this->hasOne(Krs::className(),['nim' =>'nim'])
+         ->innerJoin("akademik.ak_matakuliah","akademik.ak_krs.kodemk=akademik.ak_matakuliah.kodemk and akademik.ak_matakuliah.tipekuliah='T' and akademik.ak_matakuliah.thnkurikulum= akademik.ak_matakuliah.thnkurikulum")
+         ->orderBy("periode desc");
+         ;
+   }
+  
 
    public function getNama_prodi()
    {
@@ -420,6 +428,7 @@ class Mahasiswa extends \yii\db\ActiveRecord
        return is_null($this->skripsi->ruang)?"":$this->skripsi->ruang->nama;
        }  
    }
+
 
 }
 

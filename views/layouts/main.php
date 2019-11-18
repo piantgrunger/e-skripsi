@@ -56,6 +56,11 @@ if (Yii::$app->controller->action->id === 'login') {
                    'icon' => 'book',
                    'url' => ['/detailskripsipenguji/index']
                   ],
+ [  'visible' => !Yii::$app->user->isGuest,
+                   'label' => 'Finalisasi Skripsi',
+                   'icon' => 'book',
+                   'url' => ['/skripsi/finalisasi-nilai']
+                  ],
 
                                   
                 ];

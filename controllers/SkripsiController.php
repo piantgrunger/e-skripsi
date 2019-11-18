@@ -8,6 +8,8 @@ use app\models\Skripsi;
 use app\models\Detailskripsipembimbing;
 use app\models\Detailskripsipenguji;
 use app\models\SkripsiSearch;
+use app\models\Skalanilai;
+use app\models\Krs;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -47,6 +49,84 @@ class SkripsiController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionFinalisasiNilai()
+    {
+        $searchModel = new SkripsiSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams,1);
+
+        return $this->render('index-final', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+      
+      
+    }
+    public function actionDetailFinalisasiNilai($id)
+    {
+        
+      //  die($nim);
+        $model = $this->findModel($id);
+
+      
+        return $this->renderAjax('detail-nilai', [
+            'model'=>$model,
+            ]);
+    }
+  
+  
+   public function actionSiakad($id){
+      $model=$this->findModel($id);
+      $kodemk=$model->mahasiswa->krs->kodemk;
+      $periode=$model->mahasiswa->krs->periode;
+      $nim=$model->mahasiswa->nim;
+      $thnkurikulum=$model->mahasiswa->krs->thnkurikulum;
+     
+     
+      $skalanilai =  Skalanilai::find()->where(["thnkurikulum"=>$thnkurikulum])->andWhere(["<=","batasbawah",$model->nilai_final])->andWhere([">=","batasatas",$model->nilai_final]) ->one();
+      $nilaiHuruf = $skalanilai->nhuruf; 
+      $nilaiAngka = $skalanilai->nangkasn; 
+      
+     $krs = Krs::find()->where(["kodemk"=>$kodemk,'periode'=>$periode,'nim'=>$nim])->one();
+      if(is_null($krs))
+      {
+            Yii::$app->session->setFlash('error', 'Mahasiswa Belum Memprogram KRS Skripsi /Tugas Akhir');
+            return $this->redirect(['finalisasi-nilai']);
+        
+      } 
+     
+try {
+     $krs->nnumerik = $model->nilai_final;
+     $krs->nangka = $nilaiAngka;
+     $krs->nhuruf = $nilaiHuruf;
+      $krs->lulus = -1;
+      $krs->dipakai = -1;
+      $krs->nilaimasuk = -1;
+      $krs->ulang = 0;
+      $krs->autonilai = -1;
+      $krs->t_updateuser= \yii::$app->user->identity->username;
+     $krs->t_updateip = \yii::$app->getRequest()->getUserIP();
+     $krs->t_updateact = 'u-set_nilai';
+     $krs->save();
+         return $this->redirect(['finalisasi-nilai']);
+  } catch ( yii\db\Exception $e) {
+  
+   
+
+     Yii::$app->session->setFlash('error', $e->errorInfo[2]);
+
+      return $this->redirect(['finalisasi-nilai']);
+
+}
+
+        
+     
+       
+     
+  
+   
+   
+   
+   }
 
     /**
      * Displays a single Skripsi model.
@@ -129,6 +209,69 @@ class SkripsiController extends Controller
         return $this->renderAjax('upload-laporan', [
             'model'=>$model,
             ]);
+      }
+
+   public function actionUploadRevisi()
+    {
+        $nim= Yii::$app->user->identity->username;
+      //  die($nim);
+        $model = Skripsi::find()->where(['nim'=>$nim])->one();
+        if ($model===null) {
+            throw new NotFoundHttpException('Anda Belum Memiliki Data Skripsi Hubungi Kaprodi');
+        }
+        if ($model->nilai===0) {
+            throw new NotFoundHttpException('Anda Belum Melakukan Sidang Skripsi ');
+        }
+     
+        if ($model->load(Yii::$app->request->post()) && $model->upload('revisi_laporan') && $model->save()) {
+          return $this->redirect(["site/index"]);
+        }
+        return $this->renderAjax('upload-revisi', [
+            'model'=>$model,
+            ]);
+    }
+  
+   public function actionDetailRevisi($id)
+    {
+       $model = Detailskripsipembimbing::findOne($id);
+
+      
+        return $this->renderAjax('detail-revisi', [
+            'model'=>$model,
+            ]);
+    }
+    
+   public function actionDetailRevisiPenguji($id)
+    {
+       $model = Detailskripsipenguji::findOne($id);
+
+      
+        return $this->renderAjax('detail-revisi', [
+            'model'=>$model,
+            ]);
+    }
+  
+  public function actionFinalisasiPembimbing($id)
+    {
+          $model = Detailskripsipembimbing::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())   && $model->save()) {
+          return $this->redirect(["detailskripsipembimbing/index"]);
+        }
+        return $this->renderAjax('finalisasi', [
+            'model'=>$model,
+            ]);
+    }
+public function actionFinalisasi($id)
+    {
+          $model = Detailskripsipenguji::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())   && $model->save()) {
+          return $this->redirect(["detailskripsipenguji/index"]);
+        }
+        return $this->renderAjax('finalisasi', [
+            'model'=>$model,
+            ]);
     }
 
     /**
@@ -169,8 +312,21 @@ class SkripsiController extends Controller
         }
     }
   
+  
       public function actionDaftar()
     {
+        
+      $nim= Yii::$app->user->identity->username;
+      $mahasiswa = mahasiswa::findOne($nim);  
+  
+ 
+
+      if(is_null($mahasiswa->krs))
+      {
+            Yii::$app->session->setFlash('error', 'Anda Belum Memprogram KRS Skripsi / Tugas Akhir');
+           return $this->redirect(['site/index']);
+        
+      }   
         $model = new Skripsi();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -179,7 +335,7 @@ class SkripsiController extends Controller
                 $model->detailskripsipembimbings =  Yii::$app->request->post('Detailskripsipembimbing', []);
                 $unit = yii::$app->user->identity->model->kodeunit;
                 $model->kode_unit = $unit;
-                if ($model->save() ) {
+                if ($model->save()   && (count($model->detailskripsipembimbings) > 0))  {
                     $transaction->commit();
                     return $this->redirect(['site/index']);
                 }
@@ -187,6 +343,11 @@ class SkripsiController extends Controller
                 $transaction->rollBack();
                 throw $ecx;
             }
+          
+             if (count($model->detailskripsipembimbings) == 0) {
+                $model->addError('Pembimbing', ' Silahkan Masukkan Data Pembimbing Skripsi Terlebih Dahulu');
+            }
+
      
 
             return $this->render('create', [
@@ -222,7 +383,7 @@ class SkripsiController extends Controller
                 throw $ecx;
             }
             if (count($model->detailskripsipembimbings) == 0) {
-                $model->addError('Pembimbing', 'Data Skripsi Silahkan Masukkan Data Skripsi Terlebih Dahulu');
+                $model->addError('Pembimbing', ' Silahkan Masukkan Data Pembimbing Skripsi Terlebih Dahulu');
             }
 
 

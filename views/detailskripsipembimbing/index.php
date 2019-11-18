@@ -45,26 +45,50 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
         
        
              'skripsi.judul_skripsi',
-             'validasi_sidang', 
+                ["attribute" =>'validasi_sidang', 
+                 "format" => 'html',
+                 	'filter' => ['Sudah Validasi' => 'Sudah Validasi', 'Belum Validasi' => 'Belum Validasi'],
+                  'value' => function($data) {
+               	if ($data->validasi_sidang == 'Sudah Validasi')
+						return "<span class='label label-primary'>" . 'Sudah Validasi' . "</span>";
+					else
+						return "<span class='label label-danger'>" . 'Belum Validasi' . "</span>";      
+                  }
+                 ],
                'skripsi.ruang_sidang',
                   ["attribute" => 'tanggal_sidang',
                       "format" =>'date',
                  
                 "value"=>'skripsi.tanggal_sidang'],
                'skripsi.jam_sidang', 
-                 ["attribute" => 'nilai',
-                  "value" =>'nilaiHuruf'
+            
+            
+       
+    
+                ["attribute" => 'Nilai Metode Penelitian',
+                  "value" =>'nilai_akhir'
                   
                   ],
-            
-             'revisi:ntext',
-             'nilai_akhir',
+                    ["attribute" => 'Nilai Bahasa dan Teknik Penulisan',
+                  "value" =>'nilai_akhir2'
+                  
+                  ],
+                    ["attribute" => 'Nilai Materi Skripsi',
+                  "value" =>'nilai_akhir3'
+                  
+                  ],
+                    ["attribute" => 'Nilai Penguasaan Materi',
+                  "value" =>'nilai_akhir4'
+                  
+                  ],
               [
                 'attribute' =>'aksi',
                 'format' =>'raw',
                 'value' => function($data) {
                 return "<a  href=\"".Url::to(['skripsi/validasi','id'=>$data->id])."\" class=\"btn btn-primary pull-right btn-round btn-sm \"   data-toggle = 'modal', data-target = '#modal'> Validasi Sidang </a> <br> 
-                               <a  href=\"".Url::to(['skripsi/nilai','id'=>$data->id])."\" class=\"btn btn-success pull-right btn-round btn-sm \"   data-toggle = 'modal', data-target = '#modal'> Penilaian </a>";
+                               <a  href=\"".Url::to(['skripsi/nilai','id'=>$data->id])."\" class=\"btn btn-success pull-right btn-round btn-sm \"   data-toggle = 'modal', data-target = '#modal'> Penilaian Sidang </a>  <br>       <br>
+                               <a  href=\"".Url::to(['skripsi/finalisasi-pembimbing','id'=>$data->id])."\" class=\"btn btn-info pull-right btn-round btn-sm \"   data-toggle = 'modal', data-target = '#modal'> Finalisasi Sidang</a>";
+
                   
                 }
               ]

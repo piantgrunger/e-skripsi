@@ -15,7 +15,8 @@ use kartik\date\DatePicker;// The controller action that will render the list
 
     <?php $form = ActiveForm::begin([
       'options' => [
-  "class"=>"form-horizontal"
+  "class"=>"form-horizontal",
+         'data-pjax' => true
       ]
       ]); ?>
     <?= $form->errorSummary($model) ?>
@@ -62,24 +63,72 @@ use kartik\date\DatePicker;// The controller action that will render the list
         </div>
     
         <div class="form-group row">
-          <label class="control-label text-right col-md-3">Revisi</label>
+          <label class="control-label text-right col-md-3">Revisi Metode Penelitian</label>
         <div class="col-md-9">
           <?= $form->field($model, 'revisi')->textArea(['rows' => '6'])->label(false) ?>
 
 
         </div>
          </div>
- 
-        
-         <div class="form-group row">
-          <label class="control-label text-right col-md-3">Nilai</label>
+    
+        <div class="form-group row">
+          <label class="control-label text-right col-md-3">Revisi Bahasa dan Teknik Penulisan</label>
         <div class="col-md-9">
-          <?= $form->field($model, 'nilai')->dropDownList(['4'=>'A','3.5'=>'AB','3' =>'B','2.5' => 'BC'  ,'2' => 'C' ,'1'=>'D' ,'0'=>'E'                                                                   
-                                                                    ])->label(false) ?>
+          <?= $form->field($model, 'revisi2')->textArea(['rows' => '6'])->label(false) ?>
 
 
         </div>
          </div>
+    
+        <div class="form-group row">
+          <label class="control-label text-right col-md-3">Materi Skripsi</label>
+        <div class="col-md-9">
+          <?= $form->field($model, 'revisi3')->textArea(['rows' => '6'])->label(false) ?>
+
+
+        </div>
+         </div>
+    
+        
+      
+    
+        <div class="form-group row">
+          <label class="control-label text-right col-md-3">Nilai Metode Penelitian</label>
+        <div class="col-md-9">
+          <?= $form->field($model, 'nilai_akhir')->label(false) ?>
+
+
+        </div>
+         </div>
+    
+        <div class="form-group row">
+          <label class="control-label text-right col-md-3">Nilai Bahasa dan Teknik Penulisan</label>
+        <div class="col-md-9">
+          <?= $form->field($model, 'nilai_akhir2')->label(false) ?>
+
+
+        </div>
+         </div>
+    
+        <div class="form-group row">
+          <label class="control-label text-right col-md-3">Nilai Materi Skripsi</label>
+        <div class="col-md-9">
+          <?= $form->field($model, 'nilai_akhir3')->label(false) ?>
+
+
+        </div>
+         </div>
+        <div class="form-group row">
+          <label class="control-label text-right col-md-3">Nilai Penguasaan Materi</label>
+        <div class="col-md-9">
+          <?= $form->field($model, 'nilai_akhir4')->label(false) ?>
+
+
+        </div>
+         </div>
+    
+        
+      
  
         
     

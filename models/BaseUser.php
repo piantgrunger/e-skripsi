@@ -50,12 +50,9 @@ class BaseUser extends ParentUser
             
 
                 }
-               $role = AuthAssignment::find()->where(['user_id'=>$user->id])->one();
-               if(!is_null($role))
-               {
-                  $role->delete();   
-               }  
-               if (!is_null($user->jenisUser))
+               AuthAssignment::deleteAll(['user_id'=>$user->id]);
+             
+              if (!is_null($user->jenisUser))
                {
                  $role = new AuthAssignment;
                  $role->item_name = $user->jenisUser;

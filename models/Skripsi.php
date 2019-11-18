@@ -39,7 +39,8 @@ class Skripsi extends \yii\db\ActiveRecord
             [['judul_skripsi'], 'string'],
              [['id_skripsi'],'safe'],
             [['tanggal_sidang','jam_sidang','id_ruang'],'safe'],
-               [[ 'proposal', 'kartu_bimbingan','laporan'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf,doc,docx,txt,jpeg,jpg,xls,xlsx', 'maxSize' => 5000000],
+               [[ 'proposal', 'kartu_bimbingan','laporan','revisi_laporan'], 'file', 'skipOnEmpty' => true, 'extensions' => 'pdf,doc,docx,txt,jpeg,jpg,xls,xlsx', 'maxSize' => 5000000],
+            [['tanggal_sidang','jam_sidang','id_ruang'], 'unique', 'targetAttribute' => ['tanggal_sidang','jam_sidang','id_ruang'], 'on'=>'sidang' ,'comboNotUnique' => 'Ada Skripsi Lain di Ruang dan Waktu ini'],
        
           
             [['nim'], 'string', 'max' => 50],
@@ -72,6 +73,8 @@ class Skripsi extends \yii\db\ActiveRecord
 
        
      }
+    
+    
   }
   
   public function upload($fieldName)
@@ -152,4 +155,96 @@ class Skripsi extends \yii\db\ActiveRecord
         return $nama;
     } 
   
+  public function getNilai() {
+    $nilai = 0;
+    $count = 0;
+    foreach($this->detailskripsipembimbings as $detail) {
+      $nilai +=$detail->nilai;
+      $count++;
+      
+    }
+        foreach($this->detailskripsipengujis as $detail) {
+      $nilai +=$detail->nilai;
+      $count++;
+    }
+
+    $nilai = $nilai /($count)==0?1:($count);
+    return $nilai;
+   
+  }
+   public function getNilai_akhir() {
+    $nilai = 0;
+    $count = 0;
+    foreach($this->detailskripsipembimbings as $detail) {
+      $nilai +=$detail->nilai_akhir;
+      $count++;
+      
+    }
+        foreach($this->detailskripsipengujis as $detail) {
+      $nilai +=$detail->nilai_akhir;
+      $count++;
+    }
+
+    $nilai = (real) $nilai /(($count)==0?1:($count));
+    return $nilai;
+   
+  }
+  public function getNilai_akhir2() {
+    $nilai = 0;
+    $count = 0;
+    foreach($this->detailskripsipembimbings as $detail) {
+      $nilai +=$detail->nilai_akhir2;
+      $count++;
+      
+    }
+        foreach($this->detailskripsipengujis as $detail) {
+      $nilai +=$detail->nilai_akhir2;
+      $count++;
+    }
+
+    $nilai = (real) $nilai /(($count)==0?1:($count));
+    return $nilai;
+   
+  }
+  
+  public function getNilai_akhir3() {
+    $nilai = 0;
+    $count = 0;
+    foreach($this->detailskripsipembimbings as $detail) {
+      $nilai +=$detail->nilai_akhir3;
+      $count++;
+      
+    }
+        foreach($this->detailskripsipengujis as $detail) {
+      $nilai +=$detail->nilai_akhir3;
+      $count++;
+    }
+
+    $nilai = (real) $nilai /(($count)==0?1:($count));
+    return $nilai;
+   
+  }
+  public function getNilai_akhir4() {
+    $nilai = 0;
+    $count = 0;
+    foreach($this->detailskripsipembimbings as $detail) {
+      $nilai +=$detail->nilai_akhir4;
+      $count++;
+      
+    }
+        foreach($this->detailskripsipengujis as $detail) {
+      $nilai +=$detail->nilai_akhir4;
+      $count++;
+    }
+
+    $nilai = (real) $nilai /(($count)==0?1:($count));
+    return $nilai;
+   
+  }
+ public function getNilai_final() {
+ 
+    return ($this->nilai_akhir+$this->nilai_akhir2+$this->nilai_akhir3+$this->nilai_akhir4)/4;
+   
+  }
+   
 }

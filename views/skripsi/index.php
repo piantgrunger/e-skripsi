@@ -11,9 +11,16 @@ $gridColumns=[['class' => 'kartik\grid\SerialColumn'],
             'nama_prodi',
    
             'judul_skripsi',
-            'proposal',
-            'kartu_bimbingan',
-
+              [
+                'attribute' => 'pembimbing',
+                'format' =>'raw',
+                'value' =>  'nama_pembimbing',
+                ],
+                  [
+                'attribute' => 'penguji',
+                'format' =>'raw',
+                'value' =>  'nama_penguji',
+                ],
          ['class' => 'kartik\grid\ActionColumn',   'template' => Mimin::filterActionColumn([
               'update','delete','view'],$this->context->route),    ],    ];
 

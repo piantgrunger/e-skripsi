@@ -27,6 +27,21 @@ $('#modal').insertAfter($('body'));
 JS;
 $this->registerJs($js);
 
+$js = <<<JS
+$('#modalRevisi').insertAfter($('body'));
+  $("#modalRevisi").on("shown.bs.modal",function(event){
+       var button = $(event.relatedTarget);
+       var href = button.attr("href");
+       $.pjax.reload("#pjax-modalRevisi",{
+                 "timeout" : false,
+                 "url" :href,
+                 "replace" :false,
+       });
+  });
+JS;
+$this->registerJs($js);
+
+
 ?>
 
 <div class="x_panel">
@@ -175,6 +190,10 @@ $this->registerJs($js);
     </div>
   </div>
   
+  <?php
+                       if(!is_null($skripsi)) {
+            ?> 
+  
     <div class="col-md-7 col-sm-7 col-xs-12 profile_details">
     <div class="x_panel tile fixed_height_600 overflow_hidden">
       <div class="x_title">
@@ -241,6 +260,30 @@ $this->registerJs($js);
             </li>
             <?php } } ?>
           </ul>
+          <div class="pull-right">     <a href="<?=Url::to(['skripsi/upload-revisi'])?>" class="btn btn-primary pull-right btn-round"   data-toggle = 'modal', data-target = '#modal',
+                       title ='revisi sidang'> Revisi  Sidang</a>
+      </div>
+          
+          
+            <div class="left col-xs-12">
+
+          <ul class="to_do">
+            <li>
+              <div class="row">
+                <div class="text-right col-md-3"> Revisi Laporan</div>
+                <div class="right col-md-8"> <?=(yii::$app->user->identity->model->skripsi->revisi_laporan=='')?'':"<a href='/document/".yii::$app->user->identity->model->skripsi->revisi_laporan."'>Download</a>" ?></div>
+              </div>
+            </li>
+         
+          </ul>
+
+
+        </div>
+          
+          <?php 
+                       } ?>
+      
+          
     
         </div>
         
@@ -272,3 +315,25 @@ Pjax::begin(
 Pjax::end();
 ?>
  <?php Modal::end(); ?>
+
+
+
+
+<?php
+Modal::begin([
+    'id' => 'modalRevisi',
+       'header' => '<h4>Detail Revisi</h4>',
+       'size' => 'modal-lg',
+]);
+Pjax::begin(
+    [
+    'id' => 'pjax-modalRevisi', 'timeout' => 'false',
+    'enablePushState' => 'false',
+    'enableReplaceState' => 'false',
+]
+);
+Pjax::end();
+?>
+ <?php Modal::end(); ?>
+
+
